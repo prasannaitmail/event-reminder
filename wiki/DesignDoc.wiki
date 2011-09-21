@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Design document for event reminder application 
 
 = Introduction =
 
