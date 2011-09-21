@@ -1,4 +1,4 @@
-#Design document for event reminder application 
+# Design document for event reminder application 
 
 = Introduction =
 
