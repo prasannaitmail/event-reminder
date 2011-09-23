@@ -1,36 +1,65 @@
 # Design document for event reminder application 
 
 = Introduction =
+  
+   I am developing an event reminder android application for the CSC 780 term project. The event reminder application allows users to create a list of their tasks/events and associate reminder time with every task. In addition, it has three other main features:
+ * _Pictures_ : This feature will allow user to take picture related to the task.  
 
-Add your content here.
+ * _Location_ : This feature will allow user to select location of their event/task on the Google map. When user is in the area of event's location, it will notify the user.  
+
+ * _Voice Memo_ : This feature will allow user to record voice memos and use it as an alert tone for the reminder.
 
 
 == Design ==
 
 *_Welcome Screen_*
 
+This will be the main screen of the application. It lists all the events/tasks. The user will add new event/task using "+" button on the main screen. The name, priority, due date and due time for each task will be available on the main screen. There will be a check box present in front of every task. The user can edit event by clicking on it. The user will be able to mark the check box and clear the task from the list.  
+
 http://event-reminder.googlecode.com/svn/wiki/images/1.png
 
 *_Add Event_* and *_Edit Event_*
 
+The first entry field for new event is the 'Title'. The user will enter the name of the event. The next field priority has four options:
+ * Highest priority is represented by 4 stars
+ * High-Medium priority is represented by 3 stars
+ * Medium-low priority is represented by 2 stars
+ * Low priority is represented by 1 star
+The user can associate priority accordingly to each event/task. Then user will select 'Due date' and 'Due time' using date picker and time picker respectively. The 'Alarms' field allows user to choose when to be notified. Extra details about the event can be added to the 'Notes' field. for example, if the events is about the dinner at the restaurant, the user can add address of the restaurant to the notes. The next three fields on the add screen is to add picture, location and voice memo to the event details.  
+For each new event/task, the mandatory entry fields are Title, Due date and Due time.   
+The edit screen has same field as the add screen. Default values will be present for the previously saved fields. The user can edit all the field and update the event details.
+
+
 http://event-reminder.googlecode.com/svn/wiki/images/2.png
 
+*_Alarms_*
+
+The alarm screen has several options e.g. "1 hour before" means notify the user one hour before the due time of the event.
+
+http://event-reminder.googlecode.com/svn/wiki/images/9.png
+
 *_Add Picture_*
+
+The user will be able to add picture to the event using 'Picture' option on the Add/Edit screen. When the user click on this application, camera will start. The user can take the picture and use it for the event. There will be an option present for retaking the picture.
 
 http://event-reminder.googlecode.com/svn/wiki/images/6.png
 
 *_Add Location_*
 
+The user will be able to link location with event/task using 'Location' field. When user clicks on the 'Location' field, a map screen will open. The user will able to pinpoint location on the map and add it. The GPS functionality will be used to track the user's location. When the user is significantly near to the pinpointed location, a location notification will be send to the user.   
+
 http://event-reminder.googlecode.com/svn/wiki/images/3.png
 
+*_Location Alert_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/8.png
+
 *_Add Voice Memo_*
+
+'Voice Memo' field allows user to use voice recordings as their reminder alert tone. When user clicks on the 'Voice memo' field, the voice recorder will open. It will have four options: Record, stop, play and use. Using these options, the user can record the voice messages and set as reminder tone.  
 
 http://event-reminder.googlecode.com/svn/wiki/images/5.png
 
 *_Alert_*
 
 http://event-reminder.googlecode.com/svn/wiki/images/7.png
-
-*_Location Alert_*
-
-http://event-reminder.googlecode.com/svn/wiki/images/8.png
