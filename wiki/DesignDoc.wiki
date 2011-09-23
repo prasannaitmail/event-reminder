@@ -27,6 +27,10 @@ http://event-reminder.googlecode.com/svn/wiki/images/3.png
 
 http://event-reminder.googlecode.com/svn/wiki/images/5.png
 
-*_Alert Box_*
+*_Alert_*
 
 http://event-reminder.googlecode.com/svn/wiki/images/7.png
+
+*_Location Alert_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/8.png
