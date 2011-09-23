@@ -9,4 +9,24 @@ Add your content here.
 
 *_Welcome Screen_*
 
-http://event-reminder.googlecode.com/svn/wiki/images/Welcome.png
+http://event-reminder.googlecode.com/svn/wiki/images/1.png
+
+*_Add Event_* and *_Edit Event_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/2.png
+
+*_Add Picture_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/6.png
+
+*_Add Location_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/3.png
+
+*_Add Voice Memo_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/5.png
+
+*_Alert Box_*
+
+http://event-reminder.googlecode.com/svn/wiki/images/7.png
