@@ -13,4 +13,4 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 
 *_Welcome Screen_*
-'<img src="http://event-reminder.googlecode.com/files/Welcome.PNG"/>'
+`<img src="http://event-reminder.googlecode.com/files/Welcome.PNG"/>`
