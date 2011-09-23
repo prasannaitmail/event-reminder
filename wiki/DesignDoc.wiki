@@ -5,7 +5,7 @@
 Add your content here.
 
 
-= Design=
+== Design ==
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
