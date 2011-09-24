@@ -2,64 +2,177 @@
 
 = Introduction =
   
-   I am developing an event reminder android application for the CSC 780 term project. The event reminder application allows users to create a list of their tasks/events and associate reminder time with every task. In addition, it has three other main features:
- * _Pictures_ : This feature will allow user to take picture related to the task.  
+   I am developing an event reminder android application for the CSC 780 term project.  The event reminder application allows users to create a list of their tasks/events and associate reminder time with every task. In addition to the basic reminding feature, it will have three extra features. First, it will allow user to set the location for event/tasks. The user will be notified about event when he/she is on the selected location. Second, The user can record voice memos and use it as an event reminder alert tone. Finally, the user can take the picture and use it as an event detail.
+The target audience for this application is all the smartphone users. 
 
- * _Location_ : This feature will allow user to select location of their event/task on the Google map. When user is in the area of event's location, it will notify the user.  
+= Use Cases =
 
- * _Voice Memo_ : This feature will allow user to record voice memos and use it as an alert tone for the reminder.
+*1. The user create and update the event*
+
+  John is a computer science graduate student at SFSU. He has taken four courses in this semester and doing part time job also. His schedule is so hectic that it's hard to keep track of all the deadlines. He forgot the deadline of one of the assignments and that resulted into 50% grade penalty for that assignment. John comes across this event reminder android application. He decides to use it to organize his tasks and deadlines. 
+
+  From the main screen, he clicks on the "+" button to create new event. John wants to create event about tomorrow's seminar. He enters the title, "ZINC seminar". He enters the due-date, 21st Sep 2011  and due-time 5:00 pm. Then he clicks on the alarms field which takes to the alarm screen. On the alarm screen, he marks the check box in front of option, "1 hour before" and choose the ring type "Ring at once". In the notes, field he added the room number "TH 331". He saves the event by clicking on the save button. This takes him to the main screen where he can now see that his event is listed. John later finds that the seminar is going to start at 4:30 pm. He starts the application. Click on the "ZINC seminar" event in the list. This opens a edit screen. He changes the due time to 4:30 pm and saves the application.
+
+  On the next day, John finishes his class at 3:30 pm and is leaving for home. But he receives reminder alert about the seminar at 3:30pm. So, he decides to stop and attain the seminar. 
+*Actions*
+
+1)User creates event
+
+2)User enters event details
+
+3)User update/edit the event details (optional)
+
+4)User saves the event
+
+5)User receives reminder when the alarm is due. 
 
 
-== Design ==
 
-*_Welcome Screen_*
+
+*2. The user receives location alert*
+
+   John is very happy with the event reminder application. He decides to add location updates to some of his events. He edit the "Visit Library" event and click the "Location" field. This opens the Google map. John selects the J Paul Leonard Library location and add it to the event and saves the event. 
+   After two days, he goes to the Bursar at administrator building which is close to the library. He receives location reminder alert about the "Visit Library".
+
+*Actions*
+
+1) User creates/edits the event
+
+2) User clicks the "Location" field 
+
+3) User selects location on the google map
+
+4) User adds the location to the event
+
+5) User saves the event
+
+6) User receives Location alert reminder  
+   
+
+
+= Requirements and their priorities = 
+
+The requirements are divided into following categories: 
+ * Priority 1(P1): Must have 
+ * Priority 2(P2): Important and desired 
+ * Priority 3(P3): Opportunistic
+
+*a) List view of events* (P1): 
+
+The user shall be able to see the lists of the events on the main screen of the application.
+
+*b) Add/Create Event* (P1) : 
+
+The user shall able to create event using "+" button on the main screen.
+
+*c) Edit Event* (P1): 
+
+The user shall be able to edit the event by clicking on event in the main screen's list. The user shall be able to update any field.
+
+*d) Delete Event* (P1): 
+
+The user shall be able to delete the event. The user shall mark the check box for the event in the list on the main screen. This popups a dialog box asking to delete the event.
+
+*e) Add Title and Note* (P1): 
+
+The user shall be able to type "Title" and "Note" of the event using on screen keyboard.
+
+*f) Set Date and Time* (P1): 
+
+The user shall be able to set due date and due time to the event.
+
+*g) Set priority* (P1): 
+
+The user shall be able to set the "highest" or "High-medium" or "medium-low" or "low" priority to the event.
+
+*h) Set Alarm* (P1): 
+
+The user shall be able to choose when to be notified using "Alarm" screen. The user shall select the "Alarms" field on add/edit screen which will open the alarm's screen where the user shall have options to choose multiple alarms.
+
+*i) Set Ring/Vibration Type* (P3): 
+
+The user shall be able to choose a ring type between "Ring at once" and "Ring until dismiss". If the type is "Ring at once" then alert-tone/vibration will occur single time and then dismissed. If the type is "Ring until dismiss", then it will wait for user to dismiss the alert-tone/vibration.
+
+*j) Add Location* (P1): 
+
+The user shall be able to choose the location on the Google map and add it to the event in order to receive the location alerts.
+    The user will click on the "Location" field on the add/edit screen to see the Google map. Then he/she will be able to zoom in or zoom out the map, selects the location by touching and add it using add button. 
+
+*k) Add Voice* (P2): 
+
+The user shall be able to record voice memos and use them as alert tone for the reminder.
+    The user will click "Voice memo" field on the add/edit screen to launch the audio recorder. On the recording screen, the user will have options to record, play, stop and use the recording.
+
+*l) Add Picture* (P3): 
+
+The user shall be able to take a picture and add to the event.
+   The user will click on the "Picture" field of the add/edit screen to launch the camera and take a picture. 
+
+*m) Alert Dialog box* (P1): 
+
+The dialog window shall be pop up on the alarm time. The dialog box shall contain the title, notes and picture(if any) of the current event. The user shall be able to snooze the alarm. 
+
+*n) Location alert* (P1): 
+
+The dialog box shall be open when the user is close to the event's location. The dialog box contents for location alert will be similar to the alert dialog. 
+
+*o) View Picture* (P3):
+
+The user shall be able to see the picture by clicking the image on the dialog box.
+
+
+
+= UI mockups =
+
+
+*_ 1) Welcome Screen_*
 
 This will be the main screen of the application. It lists all the events/tasks. The user will add new event/task using "+" button on the main screen. The name, priority, due date and due time for each task will be available on the main screen. There will be a check box present in front of every task. The user can edit event by clicking on it. The user will be able to mark the check box and clear the task from the list.  
 
 http://event-reminder.googlecode.com/svn/wiki/images/1.png
 
-*_Add Event_* and *_Edit Event_*
+*_ 2) Add Event_* and *_Edit Event_*
 
-The first entry field for new event is the 'Title'. The user will enter the name of the event. The next field priority has four options:
+For each new event/task, Title, Priority, Due date, Due time, Alarms, Notes, Picture, Location and Voice memo fields shall be present. The mandatory entry fields are Title, Due date and Due time.
+The first entry field for new event shall be 'Title'. The user shall enter the name of the event. The next field priority shall have four options:
  * Highest priority is represented by 4 stars
  * High-Medium priority is represented by 3 stars
  * Medium-low priority is represented by 2 stars
  * Low priority is represented by 1 star
-The user can associate priority accordingly to each event/task. Then user will select 'Due date' and 'Due time' using date picker and time picker respectively. The 'Alarms' field allows user to choose when to be notified. Extra details about the event can be added to the 'Notes' field. for example, if the events is about the dinner at the restaurant, the user can add address of the restaurant to the notes. The next three fields on the add screen is to add picture, location and voice memo to the event details.  
-For each new event/task, the mandatory entry fields are Title, Due date and Due time.   
+The user can associate priority accordingly to each event/task. Then user shall select 'Due date' and 'Due time' using date picker and time picker respectively. The 'Alarms' field allows user to choose when to be notified. Extra details about the event can be added to the 'Notes' field. for example, if the events is about the dinner at the restaurant, the user can add address of the restaurant to the notes. The next three fields on the add screen is to add picture, location and voice memo to the event details.   
 The edit screen has same field as the add screen. Default values will be present for the previously saved fields. The user can edit all the field and update the event details.
 
 
 http://event-reminder.googlecode.com/svn/wiki/images/2.png
 
-*_Alarms_*
+*_ 3) Alarms_*
 
 The alarm screen has several options e.g. "1 hour before" means notify the user one hour before the due time of the event.
 
 http://event-reminder.googlecode.com/svn/wiki/images/9.png
 
-*_Add Picture_*
+*_ 4) Add Picture_*
 
 The user will be able to add picture to the event using 'Picture' option on the Add/Edit screen. When the user click on this application, camera will start. The user can take the picture and use it for the event. There will be an option present for retaking the picture.
 
 http://event-reminder.googlecode.com/svn/wiki/images/6.png
 
-*_Add Location_*
+*_ 5) Add Location_*
 
-The user will be able to link location with event/task using 'Location' field. When user clicks on the 'Location' field, a map screen will open. The user will able to pinpoint location on the map and add it. The GPS functionality will be used to track the user's location. When the user is significantly near to the pinpointed location, a location notification will be send to the user.   
+The user will be able to link location with event/task using 'Location' field. When user clicks on the 'Location' field, a map screen will open. The user will able to zoom in and zoom out the map and can pinpoint location on the map by touching and add it. The GPS functionality will be used to track the user's location. When the user is significantly near to the pinpointed location, a location notification will be send to the user.   
 
 http://event-reminder.googlecode.com/svn/wiki/images/3.png
 
-*_Location Alert_*
+*_ 6) Location Alert_*
 
 http://event-reminder.googlecode.com/svn/wiki/images/8.png
 
-*_Add Voice Memo_*
+*_ 7) Add Voice Memo_*
 
 'Voice Memo' field allows user to use voice recordings as their reminder alert tone. When user clicks on the 'Voice memo' field, the voice recorder will open. It will have four options: Record, stop, play and use. Using these options, the user can record the voice messages and set as reminder tone.  
 
 http://event-reminder.googlecode.com/svn/wiki/images/5.png
 
-*_Alert_*
+*_ 8) Alert_*
 
 http://event-reminder.googlecode.com/svn/wiki/images/7.png
