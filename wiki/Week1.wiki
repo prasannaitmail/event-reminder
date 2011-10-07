@@ -10,7 +10,7 @@ The click of the list items is implemented.
 
 *Activity:*
 
-	MainActivty: This is the main activity of the application.
+	MainActivty : This is the main activity of the application.
 
 	AddReminder activity:The activity to add/update event/reminder
 
