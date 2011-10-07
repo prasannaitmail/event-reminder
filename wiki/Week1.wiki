@@ -1,0 +1,39 @@
+#summary One-sentence summary of this page.
+
+== Week 1 (9/29 - 10/6) ==
+*Completed:*
+
+The list View of the events is created.
+
+The layout of the Add/update Screen is done 
+
+The click of the list items is implemented.
+
+
+*Activity:*
+
+	MainActivty: This is the main activity of the application.
+
+	AddReminder activity:The activity to add/update event/reminder
+
+*Classes:*
+	"MainActivity" inherited from ListActivity. It addresses main.xml layout.
+	A method is added to handle the clicks on the list item. An intent is added to start AddReminder activity.
+	
+	"AddReminder" inherited from activity. It references add_reminder.xml layout
+
+*Layouts added:*
+
+main.xml: listview is added to show the list of the events on the main screen.Text view is added. It will be used to display "No Event" message when the list is empty.
+
+add_reminder.xml: This is the layout for adding new event and updating event. Linear layout is used.
+
+list_row: Layout for each row in the list.
+
+
+*Use of fake data:*
+	The database has not built yet. Therefore, fake data is used for testing listview.
+	An array of strings is created. ArrayAdapter is used to manage the listview.
+
+
+*Next Tasks*
