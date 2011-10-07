@@ -16,4 +16,6 @@
     <string name="Save">Save </string>
     <string name="Cancel">Cancel </string>
     <string name="add_window_title">Add Event </string>
+    <string name="menu_AddEvent">Add Event </string>
+    <string name="help">Help</string>
 </resources>
