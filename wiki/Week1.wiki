@@ -3,6 +3,8 @@
 
 The list View of the events is created.
 
+Implemented option menu to add new event and help
+
 The layout of the Add/update Screen is done 
 
 The click of the list items is implemented.
@@ -17,8 +19,7 @@ Initial import of the project in the Google code is done
 	AddReminder activity:The activity to add/update event/reminder
 
 *Classes:*
-	"MainActivity" inherited from ListActivity. It addresses main.xml layout.
-	A method is added to handle the clicks on the list item. An intent is added to start AddReminder activity.
+	"MainActivity" inherited from ListActivity. It addresses main.xml layout. Option menu methods, "onCreateOptionsMenu" and "onMenuSelected" are added. Also method to handle the clicks on the list item is added. An intent is added to start AddReminder activity.
 	
 	"AddReminder" inherited from activity. It references add_reminder.xml layout
 
@@ -28,7 +29,9 @@ main.xml: listview is added to show the list of the events on the main screen.Te
 
 add_reminder.xml: This is the layout for adding new event and updating event. Linear layout is used.
 
-list_row: Layout for each row in the list.
+list_row.xml: Layout for each row in the list.
+
+menu.xml: layout for menu. Add event and Help options.
 
 
 *Use of fake data:*
@@ -41,6 +44,11 @@ list_row: Layout for each row in the list.
 List View 
 
 http://event-reminder.googlecode.com/svn/wiki/images/week1.1.png
+
+
+Menu to add event
+
+http://event-reminder.googlecode.com/svn/wiki/images/week1_3.png
 
 
 Add/Update Event screen
