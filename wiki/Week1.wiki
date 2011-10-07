@@ -1,5 +1,3 @@
-#summary One-sentence summary of this page.
-
 == Week 1 (9/29 - 10/6) ==
 *Completed:*
 
@@ -36,4 +34,23 @@ list_row: Layout for each row in the list.
 	An array of strings is created. ArrayAdapter is used to manage the listview.
 
 
+*Screenshots:*
+
+List View 
+
+http://event-reminder.googlecode.com/svn/wiki/images/week1.1.png
+
+
+Add/Update Event screen
+
+http://event-reminder.googlecode.com/svn/wiki/images/week1_2.png
+
 *Next Tasks*
+
+1) Create New Event
+
+2) Add date and time functionality
+
+3)Show the event in the List view on the main screen
+
+4) Add update/edit functionality
