@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">Event Reminder </string>
+    <string name="no_reminders">No Event </string>
+    <string name="Add_Event">Add Event </string>
+    <string name="title">Title </string>
+    <string name="Priority">Priority </string>
+    <string name="notes">Notes </string>
+    <string name="date">Date</string>   
+    <string name="time">Time </string>
+    <string name="alarms">Alarms </string>
+    <string name="Picture">Pictures </string>
+    <string name="Location">Location </string>
+    <string name="Voice_Memo">Voice Memo </string>
+    <string name="Save">Save </string>
+    <string name="Cancel">Cancel </string>
+    <string name="add_window_title">Add Event </string>
+</resources>
