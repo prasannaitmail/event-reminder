@@ -7,6 +7,7 @@
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:text="@string/title"
+  		android:textStyle="bold"
   		android:layout_weight="0.08"
   	/>
   	<EditText
@@ -19,8 +20,8 @@
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:text="@string/Priority"
-  		android:layout_weight="0.08"
-  		/>
+  		android:textStyle="bold"
+  		android:layout_weight="0.08"/>
   	<LinearLayout 
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
@@ -55,52 +56,65 @@
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
    		android:layout_weight="0.17"
-    	>
+   		android:layout_marginLeft="10px">
   		<TextView 
   			android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
-  			android:layout_weight="0.1667"
-  			android:text="@string/date"/>
-  		<Button
-  			android:id="@+id/dateForReminder"
-  			android:layout_weight="0.1667"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			/>
+  			android:layout_weight="0.33"
+  			android:textStyle="bold"
+  			android:text="@string/date"
+  			android:layout_marginRight="40px"/>
   		<TextView 
 	  		android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
-  			android:layout_weight="0.1667"
-  			android:text="@string/time"/>
+  			android:layout_weight="0.33"
+  			android:textStyle="bold"
+  			android:text="@string/time"
+  			android:layout_marginRight="30px"/>
+  		<TextView 
+	  		android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:layout_weight="0.33"
+  			android:textStyle="bold"
+  			android:text="@string/alarms"/>
+    </LinearLayout>
+  	<LinearLayout 
+    	android:layout_width="fill_parent" 
+   		android:layout_height="wrap_content"
+   		android:layout_weight="0.17"
+   		>
+  	    <Button
+  			android:id="@+id/dateForReminder"
+  			android:layout_weight="0.33"
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:layout_marginRight="10px"
+  			/>
   		<Button
   			android:id="@+id/timeForReminder"
-  			android:layout_weight="0.1667"
+  			android:layout_weight="0.33"
   			android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
-  			/>
-  		<TextView 
-	  		android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:layout_weight="0.1667"
-  			android:text="@string/alarms"/>
+  			android:layout_marginRight="10px"/>
   		<Button
   			android:id="@+id/alarmForReminder"
   			android:layout_width="wrap_content"
-  			android:layout_weight="0.1667"
+  			android:layout_weight="0.33"
   			android:layout_height="wrap_content"
-  			/>
+  			android:layout_marginRight="10px"/>
   </LinearLayout>
   	<TextView 
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:text="@string/notes"
+  		android:textStyle="bold"
   		android:layout_weight="0.08"
   		/>
   	<EditText
   		android:id="@+id/notes"
   		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
-  		android:minLines="5"
+  		android:minLines="3"
   		android:scrollbars="vertical"
   		android:gravity="top"
   		android:layout_weight="0.09"
@@ -109,49 +123,57 @@
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
    		android:layout_weight="0.17"
+   		android:layout_marginLeft="5px"
     	>
   		<TextView 
   			android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
-  			android:layout_weight="0.1667"
+  			android:layout_weight="0.03"
+  			android:textStyle="bold"
   			android:text="@string/Picture"/>
   		<Button
   			android:id="@+id/Picture"
   			android:layout_weight="0.1667"
   			android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
+  			android:layout_marginRight="5px"
   			/>
   		<TextView 
 	  		android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
-  			android:layout_weight="0.1667"
+  			android:layout_weight="0.03"
+  			android:textStyle="bold"
   			android:text="@string/Location"/>
   		<Button
   			android:id="@+id/location"
   			android:layout_weight="0.1667"
   			android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
+  			android:layout_marginRight="5px"
   			/>
   		<TextView 
 	  		android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
-  			android:layout_weight="0.1667"
+  			android:layout_weight="0.03"
+  			android:textStyle="bold"
   			android:text="@string/Voice_Memo"/>
   		<Button
   			android:id="@+id/voiceMemo"
   			android:layout_width="wrap_content"
   			android:layout_weight="0.1667"
   			android:layout_height="wrap_content"
-  			/>
+  			android:layout_marginRight="5px"/>
   </LinearLayout>
   <LinearLayout 
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
    		android:layout_weight="0.17"
+   		android:layout_marginBottom="0dip"
     	>
   	<Button
   		android:id="@+id/save"
   		android:text="@string/Save"
+  		android:textStyle="bold"
   		android:layout_weight="0.5"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
@@ -159,6 +181,7 @@
  	<Button
   		android:id="@+id/cancel"
   		android:text="@string/Cancel"
+  		android:textStyle="bold"
   		android:layout_weight="0.5"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
