@@ -15,7 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends ListActivity {
-    /** Called when the activity is first created. */
+	private static final int ACTIVITY_CREATE=0;
+	String RowId;
+	
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,7 @@ public class MainActivity extends ListActivity {
     super.onListItemClick(l, v, position, id);
     /*Start Edit Activity*/
     Intent intent = new Intent(this, AddReminder.class);
+    intent.putExtra(RowId, id);
     startActivity(intent);
     }//end of onListItemClick
     
@@ -49,12 +53,18 @@ public class MainActivity extends ListActivity {
     public boolean onMenuItemSelected(int featureId, MenuItem item) { 
     switch(item.getItemId()) {
     case R.id.addEvent:
-    	Intent intent = new Intent(this, AddReminder.class);
-        startActivity(intent);
-  
-    return true;
+    	//Intent intent = new Intent(this, AddReminder.class);
+        //startActivity(intent);
+        createReminder();
+    	return true;
     }
     return super.onMenuItemSelected(featureId, item);
     }
     
+    /*Add new Event*/
+    private void createReminder() {
+    Intent i = new Intent(this, AddReminder.class);
+    /* Result  for when the activity is completed */
+    startActivityForResult(i, ACTIVITY_CREATE);
+    }
 }
