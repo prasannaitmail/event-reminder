@@ -10,6 +10,7 @@ Added Time picker functionality
 
 Went through SQLite DB tutorials  
 
+
 === Tasks in Progress ===
 
 Add new Event
@@ -18,14 +19,17 @@ Update event
 
 Delete Event
 
-===Details===
+*Details about Tasks in Progress*
 
-1)add_reminder.xml file added in layout-land folder for landscape mode
+SQLite Database related code will be in eventDB class. 
 
-2)
+Created SQLite Database and table. Added SQLiteOpenHelper Class. Added 
+function to close the database. Added method createEvent().
 
+Added required local variables and onClickListener for "Save" button in 
+AddReminder.java
 
-
+Added context menu layout for deleting event. Added onCreateContextMenu and onContextItemSelected methods in MainActivity.java
 
 
 === Screen shots ===
