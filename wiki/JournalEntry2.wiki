@@ -1,13 +1,49 @@
 #Week starting from 10/07/2011 to 10/13/2011
 
-= Introduction =
+=== Completed Tasks ===
 
-Add your content here.
+Added layout for landscape mode.
+
+Added Date Picker functionality
+
+Added Time picker functionality
+
+Went through SQLite DB tutorials  
+
+=== Tasks in Progress ===
+
+Add new Event
+
+Update event
+
+Delete Event
+
+===Details===
+
+1)add_reminder.xml file added in layout-land folder for landscape mode
+
+2)
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+
+=== Screen shots ===
+
+*Date picker*
+
+http://event-reminder.googlecode.com/svn/wiki/images/week2_1.png
+
+*Time Picker*
+
+http://event-reminder.googlecode.com/svn/wiki/images/week2_2.png
+
+*Date and Time button after date and time is set*
+
+http://event-reminder.googlecode.com/svn/wiki/images/week2_3.png
+
+*Landscape layout*
+
+http://event-reminder.googlecode.com/svn/wiki/images/week2_4.png
+
+http://event-reminder.googlecode.com/svn/wiki/images/week2_5.png
