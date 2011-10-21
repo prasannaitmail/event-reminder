@@ -19,5 +19,7 @@
     <string name="menu_AddEvent">Add Event </string>
     <string name="help">Help</string>
     <string name="list_of_events">List of Events</string>
+    <string name="list_event_delete">Delete Event</string>
     <string name="event_saved_message">Event saved</string>
+    <string name="event_canceled_message">Canceled</string>
 </resources>
