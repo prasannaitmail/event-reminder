@@ -239,6 +239,8 @@ public class AddReminder extends Activity {
     	else {
     		mDbHelper.updateEvent(mRowId, title, body, eventDateTime); 
     	}
+    	/*add alarm */
+    	new EventReminderManager(this).setReminder(mRowId, mCalendar);
     }//end of saveEvent
       
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
