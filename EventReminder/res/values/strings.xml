@@ -22,4 +22,6 @@
     <string name="list_event_delete">Delete Event</string>
     <string name="event_saved_message">Event saved</string>
     <string name="event_canceled_message">Canceled</string>
+    <string name=" notifiy_new_task_title">Event Reminder</string>
+    <string name="notify_new_task_message">New reminder</string>
 </resources>
