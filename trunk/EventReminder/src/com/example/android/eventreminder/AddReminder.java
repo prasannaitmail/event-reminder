@@ -21,6 +21,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 
 public class AddReminder extends Activity {
 	String RowID;
@@ -30,6 +33,8 @@ public class AddReminder extends Activity {
 		
 	private Button mPickDateButton;
 	private Button mPickTimeButton;
+	private Button mPickAlarmButton;
+	private int AlarmTime = 0;
 		
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
@@ -44,6 +49,8 @@ public class AddReminder extends Activity {
     private Button mCancelButton;
     private eventDB mDbHelper;
     
+    private int[] arrAlarmTime = {0, 5, 15, 30, 60};
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -56,6 +63,7 @@ public class AddReminder extends Activity {
 	// capture our View elements
 	mPickDateButton = (Button) findViewById(R.id.dateForReminder);
 	mPickTimeButton = (Button) findViewById(R.id.timeForReminder);
+	mPickAlarmButton = (Button) findViewById(R.id.alarmForReminder);
 	mTitleText = (EditText) findViewById(R.id.title);
 	mNoteText =(EditText) findViewById(R.id.notes);
 	mSaveButton = (Button) findViewById(R.id.save);
@@ -108,6 +116,7 @@ public class AddReminder extends Activity {
 				showDialog(DATE_DIALOG_ID);
 			}
 		});
+
 		/* Click listener to the Time button */
 		mPickTimeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -115,6 +124,14 @@ public class AddReminder extends Activity {
 			showDialog(TIME_DIALOG_ID);
 			}
 		});
+		
+		/* Click listener to the Alarm button */
+		mPickAlarmButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AlarmDialog();
+			}
+		});		
 		
 		/* Click listener to the Save button */
 		mSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +154,8 @@ public class AddReminder extends Activity {
 				finish(); 
 			}
 		});
+		
+		
 		updateDateButtonText();
 		updateTimeButtonText();
 	}
@@ -193,6 +212,46 @@ public class AddReminder extends Activity {
     	String timeForButton = timeFormat.format(mCalendar.getTime()); 
     	mPickTimeButton.setText(timeForButton); 
     	}
+
+    private void updateAlarmButtonText() {
+    	int i = getAlarmTime();
+    	if (i < 0 || i > 4)
+    		i = 0;
+    	mPickAlarmButton.setText(arrAlarmTime[i] + " Mins"); 
+    	}
+    
+    /*Alarm */
+    private void AlarmDialog(){
+    	final String[] AlarmOptions = {"No Alarm",
+    									"Before 5 minutes",
+    									"Before 15 minutes",
+    									"Before 30 minutes",
+    									"Before 1 hour"
+    									};
+    	AlertDialog alert = new AlertDialog.Builder(AddReminder.this)
+       // .setIconAttribute(android.R.attr.alertDialogIcon)
+        .setTitle("Alarm Time")
+        .setSingleChoiceItems(AlarmOptions, getAlarmTime(), new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                /* User clicked on a radio button do some stuff */
+            	Log.d("Alarm", "Button " + whichButton);
+            	setAlarmTime(whichButton);
+            }
+        })
+        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                /* User clicked Yes so do some stuff */
+            	Log.d("Alarm", "Button OK " + whichButton);
+            	updateAlarmButtonText();
+
+            }
+        })
+       .create();
+    	alert.show();
+    
+    }
     
     private void showFields(){ 
     	if (mRowId != null) {
@@ -216,6 +275,7 @@ public class AddReminder extends Activity {
     	}
     	updateDateButtonText();
     	updateTimeButtonText();
+    	updateAlarmButtonText();
     }
    
     @Override
@@ -246,5 +306,13 @@ public class AddReminder extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
     	super.onActivityResult(requestCode, resultCode, intent);
 	
+	}
+
+	public void setAlarmTime(int alarmTime) {
+		AlarmTime = alarmTime;
+	}
+
+	public int getAlarmTime() {
+		return AlarmTime;
 	}
 }
