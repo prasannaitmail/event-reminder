@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.app.AlertDialog;
@@ -34,12 +35,14 @@ public class AddReminder extends Activity {
 	private Button mPickDateButton;
 	private Button mPickTimeButton;
 	private Button mPickAlarmButton;
-	private int AlarmTime = 0;
-		
+	private Button mSetTimeUpdateButton;
+	private Button mSetLocationUpdateButton;
+	
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd kk:mm:ss";
 
+    private int AlarmTime = 0;
     static final int DATE_DIALOG_ID = 0;
     static final int TIME_DIALOG_ID = 1;
     
@@ -60,7 +63,13 @@ public class AddReminder extends Activity {
 	setContentView(R.layout.add_reminder);
 
 	mCalendar = Calendar.getInstance();
+	
+	LinearLayout locationUpdateLayout = (LinearLayout)findViewById(R.id.locationUpdateLayout);
+	LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
+	LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
 	// capture our View elements
+	mSetTimeUpdateButton =(Button) findViewById(R.id.timeUpdateButton);
+	mSetLocationUpdateButton = (Button) findViewById(R.id.locationUpdateButton);
 	mPickDateButton = (Button) findViewById(R.id.dateForReminder);
 	mPickTimeButton = (Button) findViewById(R.id.timeForReminder);
 	mPickAlarmButton = (Button) findViewById(R.id.alarmForReminder);
@@ -77,7 +86,11 @@ public class AddReminder extends Activity {
 			Bundle extras = getIntent().getExtras();
 			int rowID = extras != null ? extras.getInt(RowID) : -1;
 		}
-	
+		/* Make layout elements invisible */
+		timeUpdateLayout.setVisibility(View.GONE);
+		locationUpdateLayout.setVisibility(View.GONE);
+		defaultLayout2.setVisibility(View.GONE);
+		
 		registerButtonListenersAndSetDefaultText();
 	}//End of onCreate()
 	
@@ -90,7 +103,9 @@ public class AddReminder extends Activity {
 		if(mRowId == null)
 			setTitle("Add New Event");
 		else
+		{
 			setTitle("Edit Event");
+		}
 	}
 	
 	@Override
@@ -108,6 +123,32 @@ public class AddReminder extends Activity {
 	
     private void registerButtonListenersAndSetDefaultText() {
 		// TODO Auto-generated method stub
+    	/* Click listener to the set time update button */
+		mSetTimeUpdateButton.setOnClickListener(new View.OnClickListener() {
+			LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
+			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
+			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
+			@Override
+			public void onClick(View v) {
+				timeUpdateLayout.setVisibility(View.VISIBLE);
+				defaultLayout2.setVisibility(View.VISIBLE);
+				EventOptionsLayout.setVisibility(View.GONE);
+			}
+		});	
+		
+		/* Click listener to the set Location update button */
+		mSetLocationUpdateButton.setOnClickListener(new View.OnClickListener() {
+			LinearLayout locationUpdateLayout = (LinearLayout)findViewById(R.id.locationUpdateLayout);
+			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
+			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
+			@Override
+			public void onClick(View v) {
+				locationUpdateLayout.setVisibility(View.VISIBLE);
+				defaultLayout2.setVisibility(View.VISIBLE);
+				EventOptionsLayout.setVisibility(View.GONE);
+			}
+		});
+		
     	/* click listener to the Date button*/
     	mPickDateButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -255,6 +296,13 @@ public class AddReminder extends Activity {
     
     private void showFields(){ 
     	if (mRowId != null) {
+    		LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
+			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
+			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
+			timeUpdateLayout.setVisibility(View.VISIBLE);
+			defaultLayout2.setVisibility(View.VISIBLE);
+			EventOptionsLayout.setVisibility(View.GONE);
+    		
     		Cursor reminder = mDbHelper.fetchEvent(mRowId); 
     		startManagingCursor(reminder);
     		mTitleText.setText(reminder.getString(
@@ -305,7 +353,6 @@ public class AddReminder extends Activity {
       
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
     	super.onActivityResult(requestCode, resultCode, intent);
-	
 	}
 
 	public void setAlarmTime(int alarmTime) {

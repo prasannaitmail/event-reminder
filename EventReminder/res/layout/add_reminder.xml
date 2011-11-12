@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id ="@+id/AddReminderLayout"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -19,39 +20,47 @@
   	<TextView 
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
-  		android:text="@string/Priority"
+  		android:text="@string/notes"
   		android:textStyle="bold"
-  		android:layout_weight="0.08"/>
-  	<LinearLayout 
+  		android:layout_weight="0.08"
+  		/>
+  	<EditText
+  		android:id="@+id/notes"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:minLines="3"
+  		android:scrollbars="vertical"
+  		android:gravity="top"
+  		android:layout_weight="0.09"
+  		/>
+  	<LinearLayout
+  		android:id = "@+id/EventOptionsLayout" 
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
-    	android:layout_weight="0.09"
+   		android:layout_weight="0.17"
     	>
-    	<Button
-  			android:id="@+id/priority4star"
-  			android:layout_weight="0.25"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
+		<Button
+			android:id="@+id/timeUpdateButton"
+			android:text="@string/SetTimeUpdate"
+			android:textStyle="bold"
+			android:layout_weight="0.5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
   		/>
- 		<Button
-  			android:id="@+id/priority3star"
-  			android:layout_weight="0.25"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  		/>
-  		<Button
-  			android:id="@+id/priority2star"
-  			android:layout_weight="0.25"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  		/>
-  		<Button
-  			android:id="@+id/priority1star"
-  			android:layout_weight="0.25"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
+		<Button
+			android:id="@+id/locationUpdateButton"
+			android:text="@string/SetLocationUpdate"
+			android:textStyle="bold"
+			android:layout_weight="0.5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
   		/>
   	</LinearLayout>
+  	<LinearLayout 
+  		android:id="@+id/timeUpdateLayout"
+  		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">	
   	<LinearLayout 
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
@@ -102,73 +111,44 @@
   			android:layout_weight="0.33"
   			android:layout_height="wrap_content"
   			android:layout_marginRight="10px"/>
-  </LinearLayout>
-  	<TextView 
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:text="@string/notes"
-  		android:textStyle="bold"
-  		android:layout_weight="0.08"
-  		/>
-  	<EditText
-  		android:id="@+id/notes"
-  		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:minLines="3"
-  		android:scrollbars="vertical"
-  		android:gravity="top"
-  		android:layout_weight="0.09"
-  		/>
-    	<LinearLayout 
-    	android:layout_width="fill_parent" 
-   		android:layout_height="wrap_content"
-   		android:layout_weight="0.17"
-   		android:layout_marginLeft="5px"
-    	>
-  		<TextView 
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:layout_weight="0.03"
-  			android:textStyle="bold"
-  			android:text="@string/Picture"/>
-  		<Button
-  			android:id="@+id/Picture"
-  			android:layout_weight="0.1667"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:layout_marginRight="5px"
+  	</LinearLayout>
+	</LinearLayout>
+	<LinearLayout 
+  		android:id="@+id/locationUpdateLayout"
+  		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">	
+			<Button
+  				android:id="@+id/useCurrentLocation"
+  				android:text="@string/useCurrentLocation"
+  				android:layout_width="fill_parent"
+  				android:layout_height="wrap_content"
+  				android:layout_marginRight="5px"
+  			/>			
+			<Button
+  				android:id="@+id/useSavedLocation"
+  				android:text="@string/useSavedLocation"
+  				android:layout_weight="0.1667"
+  				android:layout_width="fill_parent"
+  				android:layout_height="wrap_content"
+  				android:layout_marginRight="5px"
   			/>
-  		<TextView 
-	  		android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:layout_weight="0.03"
-  			android:textStyle="bold"
-  			android:text="@string/Location"/>
-  		<Button
-  			android:id="@+id/location"
-  			android:layout_weight="0.1667"
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:layout_marginRight="5px"
+			<Button
+  				android:id="@+id/addNewLocation"
+  				android:text="@string/addNewLocation"
+  				android:layout_weight="0.5"
+  				android:layout_width="fill_parent"
+  				android:layout_height="wrap_content"
+  				android:layout_marginRight="5px"
   			/>
-  		<TextView 
-	  		android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:layout_weight="0.03"
-  			android:textStyle="bold"
-  			android:text="@string/Voice_Memo"/>
-  		<Button
-  			android:id="@+id/voiceMemo"
-  			android:layout_width="wrap_content"
-  			android:layout_weight="0.1667"
-  			android:layout_height="wrap_content"
-  			android:layout_marginRight="5px"/>
-  </LinearLayout>
-  <LinearLayout 
+	</LinearLayout>
+  <LinearLayout
+  		android:id = "@+id/defaultLayout2" 
     	android:layout_width="fill_parent" 
    		android:layout_height="wrap_content"
    		android:layout_weight="0.17"
    		android:layout_marginBottom="0dip"
+   		android:gravity="bottom"
     	>
   	<Button
   		android:id="@+id/save"

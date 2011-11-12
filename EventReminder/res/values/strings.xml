@@ -24,4 +24,9 @@
     <string name="event_canceled_message">Canceled</string>
     <string name=" notifiy_new_task_title">Event Reminder</string>
     <string name="notify_new_task_message">New reminder</string>
+    <string name="SetTimeUpdate">Set Time Update</string>
+    <string name="SetLocationUpdate">Set Location Update</string>
+    <string name="addNewLocation">Pick Location On Map</string>
+    <string name="useSavedLocation">Use Saved Location</string>
+    <string name="useCurrentLocation">Use Current Location</string>
 </resources>
