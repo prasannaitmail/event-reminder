@@ -14,6 +14,9 @@ import android.database.Cursor;
 import android.net.ParseException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -329,7 +332,8 @@ public class AddReminder extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
-    	outState.putLong(eventDB.KEY_ROWID, mRowId); 
+    	if(mRowId != null)
+    		outState.putLong(eventDB.KEY_ROWID, mRowId); 
     }
     
     /* Saves the event */
@@ -362,4 +366,48 @@ public class AddReminder extends Activity {
 	public int getAlarmTime() {
 		return AlarmTime;
 	}
+	
+	/* Create menu for location */
+	 @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	    super.onCreateOptionsMenu(menu);
+	    MenuInflater mi = getMenuInflater();
+	    mi.inflate(R.menu.location_menu, menu);
+	    return true;
+	    }
+	    
+	    @Override
+	    public boolean onMenuItemSelected(int featureId, MenuItem item) { 
+	    switch(item.getItemId()) {
+	    case R.id.addNewLocation:
+	    	Intent intent = new Intent(AddReminder.this, AddLocationOnMap.class);
+	        AddReminder.this.startActivity(intent);
+	    	return true;
+	    }
+	    return super.onMenuItemSelected(featureId, item);
+	    }
+	    
+
+		public boolean onPrepareOptionsMenu(Menu menu) {
+	    	onPause();
+	    	return true;
+	    }
+	    
+	    public void onOptionsMenuClosed(Menu menu)
+	    {
+	    	onPause();
+	    	onResume();
+	    }
+	    
+
+		@Override
+		public void onDestroy() {
+			super.onDestroy();
+		}
+		@Override
+		public void onStop() {
+		
+			super.onStop();
+		}
+	    
 }
