@@ -1,13 +1,12 @@
-#summary One-sentence summary of this page.
 
-= Introduction =
+=== Completed Tasks ===
 
-Add your content here.
+1)Added functionality to pin point location on Google maps 
 
+2)Stored Google map location in shared preferences
 
-= Details =
+3)Added database functionality for location updates
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+=== Tasks in progress === 
+
+Location updates
