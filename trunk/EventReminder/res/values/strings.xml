@@ -18,6 +18,7 @@
     <string name="add_window_title">Add Event </string>
     <string name="menu_AddEvent">Add Event </string>
     <string name="help">Help</string>
+    <string name="menu_AddLocation">Add Location</string>
     <string name="list_of_events">List of Events</string>
     <string name="list_event_delete">Delete Event</string>
     <string name="event_saved_message">Event saved</string>
@@ -27,6 +28,14 @@
     <string name="SetTimeUpdate">Set Time Update</string>
     <string name="SetLocationUpdate">Set Location Update</string>
     <string name="addNewLocation">Pick Location On Map</string>
-    <string name="useSavedLocation">Use Saved Location</string>
+    <string name="useSavedLocation">Pick Location</string>
     <string name="useCurrentLocation">Use Current Location</string>
+    <!-- Preferences -->
+	<string name="pref_category_location_defaults_key">Location_default_category</string>
+	<string name="pref_category_location_defaults_title">Location Title Default</string>
+	<string name="pref_location_title_key">default_location_title</string>
+	<string name="pref_location_title_dialog_title">Default Location Title</string>
+	<string name="pref_location_title_message">The default title for a location.</string>
+	<string name="pref_location_title_summary">Default title for locations.</string>
+	<string name="pref_location_title_title">Default Location Title</string>
 </resources>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent"
+  >
   <com.google.android.maps.MapView 
     android:id="@+id/mapView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:enabled="true"
     android:clickable="true"
-    android:apiKey="0tZDEL7Zug7JrYbDY7BCc1qyKYjGIpADA0fxaTw"
+    android:apiKey="0tZDEL7Zug7JetJbvs6VJLb3w9DKxEnxDuXDlEQ"
     />
 </LinearLayout>
