@@ -117,26 +117,11 @@
   		android:id="@+id/locationUpdateLayout"
   		android:orientation="vertical"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">	
-			<Button
-  				android:id="@+id/useCurrentLocation"
-  				android:text="@string/useCurrentLocation"
-  				android:layout_width="fill_parent"
-  				android:layout_height="wrap_content"
-  				android:layout_marginRight="5px"
-  			/>			
+		android:layout_height="wrap_content">			
 			<Button
   				android:id="@+id/useSavedLocation"
   				android:text="@string/useSavedLocation"
   				android:layout_weight="0.1667"
-  				android:layout_width="fill_parent"
-  				android:layout_height="wrap_content"
-  				android:layout_marginRight="5px"
-  			/>
-			<Button
-  				android:id="@+id/addNewLocation"
-  				android:text="@string/addNewLocation"
-  				android:layout_weight="0.5"
   				android:layout_width="fill_parent"
   				android:layout_height="wrap_content"
   				android:layout_marginRight="5px"
