@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id ="@+id/AddReminderLayout"
+  android:layout_width="fill_parent" 
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+  
+	<TextView 
+  		android:id="@+id/view_title"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:textStyle="bold"
+  		android:textSize="30sp"
+  		android:layout_marginTop="30dp"/>
+	<TextView 
+  		android:id="@+id/view_notes"
+  		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+  		android:text="@string/notes"
+  		android:textSize="20sp"
+  		android:layout_marginTop="20dp"
+  		android:layout_marginBottom="20dp"/>
+ 	
+ 	<RadioGroup
+		android:id="@+id/radio_buttons"
+		android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+      	android:orientation="vertical">
+      	<RadioButton android:id="@+id/radio_for10minutes"
+        	android:layout_width="wrap_content"
+          	android:layout_height="wrap_content"
+          	android:text="For 10 minutes" />
+      	<RadioButton android:id="@+id/radio_for30minutes"
+       		android:layout_width="wrap_content"
+          	android:layout_height="wrap_content"
+          	android:text="For 30 minutes" />
+        <RadioButton android:id="@+id/radio_for1hour"
+       		android:layout_width="wrap_content"
+          	android:layout_height="wrap_content"
+          	android:text="For 1 hour" />
+	</RadioGroup>
+ 	
+	<LinearLayout
+  		android:id = "@+id/ButtonLayout" 
+   		android:layout_width="fill_parent" 
+  		android:layout_height="wrap_content"
+  		android:layout_marginTop="20dp">
+  		<Button
+  			android:id="@+id/view_snooze"
+  			android:text="@string/Snooze"
+	  		android:textStyle="bold"
+  			android:layout_weight="0.5"
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  		/>
+ 		<Button
+  			android:id="@+id/view_delete"
+  			android:text="@string/Delete"
+  			android:textStyle="bold"
+  			android:layout_weight="0.5"
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  		/>
+	</LinearLayout>
+</LinearLayout>
+
+
