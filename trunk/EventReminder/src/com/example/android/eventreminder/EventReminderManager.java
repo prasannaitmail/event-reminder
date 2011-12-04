@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class EventReminderManager {
 
@@ -22,13 +23,17 @@ public class EventReminderManager {
 		/* when alarm goes off, AlarmReceiver will be called */
 		Intent intent = new Intent(mContext, AlarmReceiver.class); 
 		intent.putExtra(eventDB.KEY_ROWID, (long)eventId); 
+	
+		int rowID = eventId.intValue();
 		/* using PendingIntent, inform application
 		 * which action to perform  
 		 * FLAG_ONE_SHOT means this PendingIntent can be used only once*/
 		PendingIntent pi = PendingIntent.getBroadcast
-			(mContext, 0, intent, PendingIntent.FLAG_ONE_SHOT); 
+			(mContext, rowID, intent, PendingIntent.FLAG_ONE_SHOT); 
+		Log.d("TAG", "PI in ERMg for: "+rowID);
 		/* set an alarm */
-		mAlarmManager.set(AlarmManager.RTC_WAKEUP, when.getTimeInMillis(), pi); 
+		mAlarmManager.set(AlarmManager.RTC_WAKEUP, when.getTimeInMillis(), pi);
+		Log.d("TAG", "Alarm in ERMg for: "+rowID);
 		/*type: AlarmManager.RTC_WAKEUP: wakes up when the specified triggerAtTime
 				argument time elapses.
 		triggerAtTime: when.getTimeInMillis(): time alarm should go off
