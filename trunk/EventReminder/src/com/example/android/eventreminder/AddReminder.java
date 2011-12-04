@@ -3,7 +3,6 @@ package com.example.android.eventreminder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -40,22 +39,21 @@ public class AddReminder extends Activity {
 	private Button mPickAlarmButton;
 	private Button mSetTimeUpdateButton;
 	private Button mSetLocationUpdateButton;
+    private Button mSaveButton;
+    private Button mCancelButton;
 	
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd kk:mm:ss";
 
-    private int AlarmTime = 0;
     static final int DATE_DIALOG_ID = 0;
     static final int TIME_DIALOG_ID = 1;
+    private int AlarmTime = 0;
+    private int[] arrAlarmTime = {0, 5, 15, 30, 60};
     
     private EditText mTitleText;
     private EditText mNoteText;
-    private Button mSaveButton;
-    private Button mCancelButton;
     private eventDB mDbHelper;
-    
-    private int[] arrAlarmTime = {0, 5, 15, 30, 60};
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +79,15 @@ public class AddReminder extends Activity {
 	mSaveButton = (Button) findViewById(R.id.save);
 	mCancelButton = (Button) findViewById(R.id.cancel);
 	
+	/* Check instance state to see whether 
+	 * it contains any values for the mRowId. */
 	mRowId = savedInstanceState != null 
-	? savedInstanceState.getLong(eventDB.KEY_ROWID)
-	: null;
+	? savedInstanceState.getLong(eventDB.KEY_ROWID): null;
 	
-		if(getIntent()!= null){
+		/*if(getIntent()!= null){
 			Bundle extras = getIntent().getExtras();
 			int rowID = extras != null ? extras.getInt(RowID) : -1;
-		}
+		}*/
 		/* Make layout elements invisible */
 		timeUpdateLayout.setVisibility(View.GONE);
 		locationUpdateLayout.setVisibility(View.GONE);
@@ -125,8 +124,7 @@ public class AddReminder extends Activity {
 	}
 	
     private void registerButtonListenersAndSetDefaultText() {
-		// TODO Auto-generated method stub
-    	/* Click listener to the set time update button */
+		/* Click listener to the set time update button */
 		mSetTimeUpdateButton.setOnClickListener(new View.OnClickListener() {
 			LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
 			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
@@ -189,7 +187,7 @@ public class AddReminder extends Activity {
 			}
 		});
 		
-		/* Click listener to the Save button */
+		/* Click listener to the Cancel button */
 		mCancelButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				Toast.makeText(AddReminder.this, 
@@ -266,7 +264,7 @@ public class AddReminder extends Activity {
     
     /*Alarm */
     private void AlarmDialog(){
-    	final String[] AlarmOptions = {"No Alarm",
+    	final String[] AlarmOptions = {"On due time",
     									"Before 5 minutes",
     									"Before 15 minutes",
     									"Before 30 minutes",
@@ -299,6 +297,7 @@ public class AddReminder extends Activity {
     
     private void showFields(){ 
     	if (mRowId != null) {
+    		Log.d("TAG", "mRowId is "+mRowId);
     		LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
 			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
 			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
@@ -327,8 +326,12 @@ public class AddReminder extends Activity {
     	updateDateButtonText();
     	updateTimeButtonText();
     	updateAlarmButtonText();
-    }
+    }//end of showFields()
    
+   /* Saves the mRowId instance state. This method is called before
+the activity is killed so that when the activity comes back in the
+future, it can be restored to a known state */
+    
     @Override
     protected void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);
@@ -351,8 +354,10 @@ public class AddReminder extends Activity {
     	else {
     		mDbHelper.updateEvent(mRowId, title, body, eventDateTime); 
     	}
+    	Log.d("TAG", "Alarm in AR for: "+mRowId);
     	/*add alarm */
     	new EventReminderManager(this).setReminder(mRowId, mCalendar);
+    	
     }//end of saveEvent
       
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
