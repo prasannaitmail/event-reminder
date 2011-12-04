@@ -4,8 +4,13 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.database.Cursor;
+import android.util.Log;
 
 public class EventReminderService extends WakeReminderIntentService {
+	private eventDB mDbHelper;
+	private String notificationTitle;
+	
 	public EventReminderService() {
 		super("EventReminderService");
 	}
@@ -22,20 +27,32 @@ public class EventReminderService extends WakeReminderIntentService {
 		NotificationManager mgr = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		/* Add reminder activity will started when notification is selected */
-		Intent notificationIntent = new Intent(this, AddReminder.class); 
+		Intent notificationIntent = new Intent(this, ViewReminder.class); 
 		notificationIntent.putExtra(eventDB.KEY_ROWID, rowId); 
 		
+		int rowID = rowId.intValue();
 		/* set pending intent */
-		PendingIntent pi = PendingIntent.getActivity(this, 0, notificationIntent,
+		PendingIntent pi = PendingIntent.getActivity(this, rowID, notificationIntent,
 		PendingIntent.FLAG_ONE_SHOT);
-		
+		Log.d("TAG", "PI in ERSer for: "+rowID);
 		/* set notification for status bar */
 		Notification note=new Notification(android.R.drawable.stat_sys_warning,
 										getString(R.string.notify_new_task_message),
 										System.currentTimeMillis());
 		
-		note.setLatestEventInfo(this, getString(R.string.notifiy_new_task_title),
+		
+		mDbHelper = new eventDB(this);
+		mDbHelper.open();
+		Cursor notificationData = mDbHelper.fetchEvent(rowId); 
+		/* get title of the event*/
+		notificationTitle = notificationData.getString(
+				notificationData.getColumnIndexOrThrow(eventDB.KEY_TITLE)); 
+		
+		note.setLatestEventInfo(this, notificationTitle,
 								getString(R.string.notify_new_task_message), pi); 
+		 
+		notificationData.close();
+		mDbHelper.close();
 		
 		/* Set default notification sound */
 		note.defaults |= Notification.DEFAULT_SOUND; 
