@@ -14,6 +14,7 @@ public class onBootReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context context, Intent intent) { 
 		EventReminderManager reminderMgr = new EventReminderManager(context); 
+		
 		eventDB dbHelper = new eventDB(context);
 		dbHelper.open();
 		
@@ -23,22 +24,25 @@ public class onBootReceiver extends BroadcastReceiver{
 			int rowIdColumnIndex = cursor.getColumnIndex(eventDB.KEY_ROWID);
 			int dateTimeColumnIndex = cursor.getColumnIndex(eventDB.KEY_DATE_TIME);
 			/* check is cursor passed the last record */
-			while(cursor.isAfterLast() == false) { 
+			while(cursor.isAfterLast() == false) {
 				Long rowId = cursor.getLong(rowIdColumnIndex);
 				Log.d("OnBootReceiver", "Adding alarm from boot.");
 				Log.d("OnBootReceiver", "Row Id Column Index - " + rowIdColumnIndex);
 				
 				String dateTime = cursor.getString(dateTimeColumnIndex);
-				Calendar cal = Calendar.getInstance();
-				SimpleDateFormat format = new SimpleDateFormat(AddReminder.DATE_TIME_FORMAT);
-				
-				try {
-					java.util.Date date = format.parse(dateTime); 
-					cal.setTime(date); 
+				if(dateTime != null)
+				{
+					Calendar cal = Calendar.getInstance();
+					SimpleDateFormat format = new SimpleDateFormat(AddReminder.DATE_TIME_FORMAT);
 					
-					reminderMgr.setReminder(rowId, cal);
-				} catch (java.text.ParseException e) {
-					Log.e("OnBootReceiver", e.getMessage(), e); 
+					try {
+						java.util.Date date = format.parse(dateTime); 
+						cal.setTime(date); 
+						
+						reminderMgr.setReminder(rowId, cal);
+					} catch (java.text.ParseException e) {
+						Log.e("OnBootReceiver", e.getMessage(), e); 
+					}
 				}
 				cursor.moveToNext(); 
 			}//end of while

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ public class ViewReminder extends Activity{
 	private Long vRowId;
 	private int vSnooze = 10;
 	private String AlarmTime;
+	
+	private boolean mTimeAlarm = true;
 	
 	private TextView vTitleText;
     private TextView vNotesText;
@@ -155,8 +158,19 @@ public class ViewReminder extends Activity{
 			String dateString = vReminder.getString(
 					vReminder.getColumnIndexOrThrow(
 							eventDB.KEY_DATE_TIME)); 
-			vDate = vdateTimeFormat.parse(dateString);
-			vCalendar.setTime(vDate);
+			if(dateString != null)
+			{
+				vDate = vdateTimeFormat.parse(dateString);
+				vCalendar.setTime(vDate);
+			}
+			else
+			{
+				mTimeAlarm = false;
+				LinearLayout SnoozeTimeLayout = (LinearLayout)findViewById(R.id.SnoozeTimeLayout);
+				SnoozeTimeLayout.setVisibility(View.INVISIBLE);
+				vSnoozeButton.setVisibility(View.GONE);
+				
+			}
 		} catch (java.text.ParseException e) { 
 			Log.e("AddReminder", e.getMessage(), e); 
 		}

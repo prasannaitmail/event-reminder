@@ -29,15 +29,18 @@
 		<activity android:name=".AddLocationOnMap" android:label="Add Location"/>
        	<activity android:name=".LocationPreferences" android:label="Save Location"/>
        	<activity android:name=".ViewReminder" android:label="View Reminder"/>
+       <activity android:name=".LocationActivity" android:label="@string/app_name"/>       
 		
 		<service android:name=".EventReminderService" />	
-		
-       <activity android:name=".LocationActivity" android:label="@string/app_name"/>       
 		<receiver android:name=".AlarmReceiver"/>
        	<receiver android:name=".onBootReceiver">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED"/>
 			</intent-filter>
 		</receiver>
+		
+		<service android:name=".EventLocationService" />	
+		<receiver android:name=".LocationReceiver"/>
+		
     </application>
 </manifest>

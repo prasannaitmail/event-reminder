@@ -57,6 +57,8 @@ public class AddReminder extends Activity {
     private EditText mTitleText;
     private EditText mNoteText;
     private eventDB mDbHelper;
+    private String mLatitude;
+    private String mLongitude;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,9 @@ public class AddReminder extends Activity {
 		}
 		
 		if(mRowId == null)
+		{
 			setTitle("Add New Event");
+		}
 		else
 		{
 			setTitle("Edit Event");
@@ -339,6 +343,7 @@ public class AddReminder extends Activity {
     		LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
 			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
 			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
+			LinearLayout locationUpdateLayout = (LinearLayout)findViewById(R.id.locationUpdateLayout);
 			timeUpdateLayout.setVisibility(View.VISIBLE);
 			defaultLayout2.setVisibility(View.VISIBLE);
 			EventOptionsLayout.setVisibility(View.GONE);
@@ -360,15 +365,44 @@ public class AddReminder extends Activity {
     				date = dateTimeFormat.parse(dateString);
     				mCalendar.setTime(date);
        			}
+    			else
+    			{
+    				mTimeupdate = false;	
+    				timeUpdateLayout.setVisibility(View.GONE);
+    				locationUpdateLayout.setVisibility(View.VISIBLE);
+    			}
     		} catch (java.text.ParseException e) { 
     			Log.e("AddReminder", e.getMessage(), e); 
     		}
-    		setAlarmTime (Integer.parseInt(reminder.getString(
+    		if(mTimeupdate)
+    		{
+    			setAlarmTime (Integer.parseInt(reminder.getString(
     				reminder.getColumnIndexOrThrow(eventDB.KEY_ALARMOPTION)))); 
+    		}
+    		else
+    		{
+    			mLatitude = reminder.getString(
+        				reminder.getColumnIndexOrThrow(eventDB.KEY_LATITUDE));
+    			mLongitude = reminder.getString(
+        				reminder.getColumnIndexOrThrow(eventDB.KEY_LONGITUDE));
+    			Cursor LocationCursor = mDbHelper.fetchLocation(mLatitude, mLongitude); 
+        		startManagingCursor(LocationCursor);
+        		if(LocationCursor != null)
+        		{
+        			mLocationRowId = (long) LocationCursor.getInt(
+            				reminder.getColumnIndexOrThrow(eventDB.KEY_ROWID));
+        			Log.d("TAG","mLocationRowId is " + mLocationRowId);
+        			if ( mLocationRowId > 0)
+        				updatePickLocationButtonText();
+        		}
+    		}
     	}// if (mRowId != null)
-    	updateDateButtonText();
-    	updateTimeButtonText();
-    	updateAlarmButtonText();
+    	if(mTimeupdate)
+    	{
+    		updateDateButtonText();
+    		updateTimeButtonText();
+    		updateAlarmButtonText();
+    	}
     }//end of showFields()
    
    /* Saves the mRowId instance state. This method is called before

@@ -19,8 +19,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class LocationActivity extends ListActivity {
-	private static final int ACTIVITY_CREATE=0;
-	private static final int ACTIVITY_EDIT=1;
 	
 	private eventDB mDbHelper;
 	private Long mRowId;
@@ -109,5 +107,16 @@ public class LocationActivity extends ListActivity {
 	    	onPause();
 	    	onResume();
 	    }
-
+	    
+		@Override
+		protected void onPause() {
+			super.onPause();
+			mDbHelper.close(); 
+		}
+		
+		@Override
+		protected void onResume() { 
+			super.onResume();
+			mDbHelper.open(); 
+		}
 }
