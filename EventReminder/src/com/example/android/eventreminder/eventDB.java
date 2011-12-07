@@ -14,6 +14,7 @@ public class eventDB {
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_NOTE = "notes";
 	public static final String KEY_DATE_TIME = "reminder_date_time";
+	public static final String KEY_ALARMOPTION = "alarmoption";
 	public static final String KEY_ROWID = "_id";
 	
 	private SQLiteDatabase mDB;
@@ -24,7 +25,8 @@ public class eventDB {
 		+ KEY_ROWID + " integer primary key autoincrement, "
 		+ KEY_TITLE + " text not null, "
 		+ KEY_NOTE + " text not null, "
-		+ KEY_DATE_TIME + " text not null);";
+		+ KEY_DATE_TIME + " text not null, "
+		+ KEY_ALARMOPTION + " text not null );";
 	
 	
 	private final Context mCtx; 
@@ -44,12 +46,13 @@ public class eventDB {
 		mDbHelper.close();
 	}
 	/*Create event*/
-	public long createEvent(String title, String body, String eventDateTime) {
+	public long createEvent(String title, String body, String eventDateTime, String alarmOption) {
 		/* Content values will store set of values */
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_TITLE, title);
 		initialValues.put(KEY_NOTE, body);
 		initialValues.put(KEY_DATE_TIME, eventDateTime);
+		initialValues.put(KEY_ALARMOPTION, alarmOption);
 		
 		return mDB.insert(DATABASE_TABLE, null, initialValues);
 	}
@@ -61,13 +64,13 @@ public class eventDB {
 	
 	public Cursor fetchAllEvents() { 
 		return mDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE,
-		KEY_NOTE, KEY_DATE_TIME}, null, null, null, null, null);
+		KEY_NOTE, KEY_DATE_TIME, KEY_ALARMOPTION}, null, null, null, null, null);
 		}
 	
 	public Cursor fetchEvent(long rowId) throws SQLException { 
 		Cursor mCursor = 
 			mDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-					KEY_TITLE, KEY_NOTE, KEY_DATE_TIME}, KEY_ROWID + "=" +
+					KEY_TITLE, KEY_NOTE, KEY_DATE_TIME, KEY_ALARMOPTION}, KEY_ROWID + "=" +
 					rowId, null, null, null, null, null); 
 			if (mCursor != null) {
 				mCursor.moveToFirst(); 
@@ -76,11 +79,12 @@ public class eventDB {
 	}
 	
 	public boolean updateEvent(long rowId, String title, String body, String
-				reminderDateTime) { 
+				reminderDateTime, String alarmOption) { 
 			ContentValues args = new ContentValues(); 
 			args.put(KEY_TITLE, title);
 			args.put(KEY_NOTE, body);
 			args.put(KEY_DATE_TIME, reminderDateTime);
+			args.put(KEY_ALARMOPTION, alarmOption);
 		return mDB.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0; 
 	}
 	

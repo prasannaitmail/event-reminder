@@ -256,11 +256,12 @@ public class AddReminder extends Activity {
     	}
 
     private void updateAlarmButtonText() {
-    	int i = getAlarmTime();
-    	if (i < 0 || i > 4)
-    		i = 0;
-    	mPickAlarmButton.setText(arrAlarmTime[i] + " Mins"); 
-    	}
+    	int i = AlarmTime;
+    	if(i == 0)
+    		mPickAlarmButton.setText("On Due Time");
+    	else
+    		mPickAlarmButton.setText("Before " + arrAlarmTime[i] + " Mins"); 
+    }
     
     /*Alarm */
     private void AlarmDialog(){
@@ -322,7 +323,10 @@ public class AddReminder extends Activity {
     		} catch (java.text.ParseException e) { 
     			Log.e("AddReminder", e.getMessage(), e); 
     		}
-    	}
+    		
+    		setAlarmTime (Integer.parseInt(reminder.getString(
+    				reminder.getColumnIndexOrThrow(eventDB.KEY_ALARMOPTION)))); 
+    	}//end of if
     	updateDateButtonText();
     	updateTimeButtonText();
     	updateAlarmButtonText();
@@ -343,19 +347,31 @@ future, it can be restored to a known state */
     private void saveEvent() {
     	String title = mTitleText.getText().toString(); 
     	String body = mNoteText.getText().toString(); 
-    	SimpleDateFormat dateTimeFormat = new SimpleDateFormat(DATE_TIME_FORMAT); 
+    	String alarmOption = String.valueOf(AlarmTime);
+    	SimpleDateFormat dateTimeFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
+    	Log.d("TAG Time", "Old time for Alarm: "+mCalendar.get(mCalendar.MINUTE));
+    	Log.d("TAG Time", "time for AlarmOptions: "+getAlarmTime());
+    	
+    	Log.d("TAG Time", "New time for Alarm1: "+(mCalendar.get(mCalendar.MINUTE) - getAlarmTime()));
+    	mCalendar.set(mCalendar.SECOND, 0);
+    	Log.d("TAG Time", "Old time for Alarm, Second: "+mCalendar.get(mCalendar.SECOND));
     	String eventDateTime = dateTimeFormat.format(mCalendar.getTime()); 
+    	    	
     	if (mRowId == null) {
-    		long id = mDbHelper.createEvent(title, body, eventDateTime); 
+    		long id = mDbHelper.createEvent(title, body, eventDateTime, alarmOption); 
     		if (id > 0) { 
     			mRowId = id; 
     		}
     	}
     	else {
-    		mDbHelper.updateEvent(mRowId, title, body, eventDateTime); 
+    		mDbHelper.updateEvent(mRowId, title, body, eventDateTime, alarmOption); 
     	}
     	Log.d("TAG", "Alarm in AR for: "+mRowId);
+    	
     	/*add alarm */
+    	mCalendar.set(mCalendar.MINUTE, (mCalendar.get(mCalendar.MINUTE) - getAlarmTime())); 
+    	Log.d("TAG Time", "New time for Alarm2: "+mCalendar.get(mCalendar.MINUTE));
+    	Log.d("TAG Time", "New time for Alarm, Second: "+mCalendar.get(mCalendar.SECOND));
     	new EventReminderManager(this).setReminder(mRowId, mCalendar);
     	
     }//end of saveEvent
@@ -369,7 +385,7 @@ future, it can be restored to a known state */
 	}
 
 	public int getAlarmTime() {
-		return AlarmTime;
+		return arrAlarmTime[AlarmTime];
 	}
 	
 	/* Create menu for location */

@@ -22,6 +22,8 @@ public class ViewReminder extends Activity{
     private eventDB vDbHelper;
 	String vRowID;
 	private Long vRowId;
+	private int vSnooze = 10;
+	private String AlarmTime;
 	
 	private TextView vTitleText;
     private TextView vNotesText;
@@ -50,6 +52,8 @@ public class ViewReminder extends Activity{
     	vRadioButton60 = (RadioButton) findViewById(R.id.radio_for1hour);
     	vSnoozeButton = (Button) findViewById(R.id.view_snooze);
     	vDeleteButton = (Button) findViewById(R.id.view_delete);
+    	
+    	vRadioButton10.setChecked(true);
     	
     	/* Check instance state to see whether 
     	 * it contains any values for the mRowId. */
@@ -87,7 +91,7 @@ public class ViewReminder extends Activity{
 			@Override
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
-				// RadioButton rb = (RadioButton) v;
+				vSnooze = 10;				
 			}       	
     	});
        	
@@ -97,6 +101,7 @@ public class ViewReminder extends Activity{
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
 				// RadioButton rb = (RadioButton) v;
+				vSnooze = 30;
 			}       	
     	});
        	vRadioButton60.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +109,12 @@ public class ViewReminder extends Activity{
 			@Override
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
-				// RadioButton rb = (RadioButton) v;
+				vSnooze = 60;
 			}       	
     	});
     	/* Click listener to the Snooze button */
 		vSnoozeButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
+			public void onClick(View view) {					
 				saveEventForView(); 
 				setResult(RESULT_OK); 
 				Toast.makeText(ViewReminder.this, 
@@ -134,7 +139,12 @@ public class ViewReminder extends Activity{
     private void showFieldsForView(){
     	Log.d("Tag", "vRowId is "+vRowId);
     	Cursor vReminder = vDbHelper.fetchEvent(vRowId); 
-		startManagingCursor(vReminder);
+    	Log.d("TAG", "Cursor : "+vReminder.getCount());
+    	if(vReminder.getCount() <= 0){
+    		finish();
+		}
+    	startManagingCursor(vReminder);
+		
 		vTitleText.setText(vReminder.getString(
 				vReminder.getColumnIndexOrThrow(eventDB.KEY_TITLE))); 
 		vNotesText.setText(vReminder.getString(
@@ -150,6 +160,8 @@ public class ViewReminder extends Activity{
 		} catch (java.text.ParseException e) { 
 			Log.e("AddReminder", e.getMessage(), e); 
 		}
+		AlarmTime = vReminder.getString(
+				vReminder.getColumnIndexOrThrow(eventDB.KEY_ALARMOPTION));
     
     }//end of showFieldsForView()
     
@@ -158,9 +170,12 @@ public class ViewReminder extends Activity{
     	String title = vTitleText.getText().toString(); 
     	String body = vNotesText.getText().toString(); 
     	SimpleDateFormat dateTimeFormat = new SimpleDateFormat(vDATE_TIME_FORMAT); 
+    	Log.d("TAG Time", "Old time: "+vCalendar);
+    	vCalendar.add(vCalendar.MINUTE, vSnooze);
+    	Log.d("TAG Time", "New time: "+vCalendar);
     	String eventDateTime = dateTimeFormat.format(vCalendar.getTime()); 
     	
-    	vDbHelper.updateEvent(vRowId, title, body, eventDateTime); 
+    	vDbHelper.updateEvent(vRowId, title, body, eventDateTime, AlarmTime); 
     	
     	/*add alarm */
     	new EventReminderManager(this).setReminder(vRowId, vCalendar);
