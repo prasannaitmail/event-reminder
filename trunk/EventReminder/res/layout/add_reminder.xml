@@ -72,14 +72,15 @@
   			android:layout_weight="0.33"
   			android:textStyle="bold"
   			android:text="@string/date"
-  			android:layout_marginRight="40px"/>
+  			android:layout_marginRight="10px"
+  			android:layout_marginLeft="10px"/>
   		<TextView 
 	  		android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
   			android:layout_weight="0.33"
   			android:textStyle="bold"
   			android:text="@string/time"
-  			android:layout_marginRight="30px"/>
+  			android:layout_marginRight="10px"/>
   		<TextView 
 	  		android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
@@ -141,15 +142,13 @@
   		android:textStyle="bold"
   		android:layout_weight="0.5"
   		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		/>
+  		android:layout_height="wrap_content"/>
  	<Button
   		android:id="@+id/cancel"
   		android:text="@string/Cancel"
   		android:textStyle="bold"
   		android:layout_weight="0.5"
   		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		/>
+  		android:layout_height="wrap_content"/>
   	</LinearLayout>
 </LinearLayout>
