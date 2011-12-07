@@ -140,6 +140,15 @@ public class eventDB {
 		return mCursor;
 	}
 	
+	public Cursor fetchLocation(String latitude, String longitude ) throws SQLException { 
+		Cursor mCursor = 
+			mDB.query(true, LOCATION_TABLE, new String[] {KEY_ROWID, KEY_LOCATION, KEY_LATITUDE, KEY_LONGITUDE}, KEY_LATITUDE + "=" +
+					latitude, null, null, null, null, null); 
+			if (mCursor != null) {
+				mCursor.moveToFirst(); 
+			}
+		return mCursor;
+	}	
 	private static class DatabaseHelper extends SQLiteOpenHelper { 
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION); 
