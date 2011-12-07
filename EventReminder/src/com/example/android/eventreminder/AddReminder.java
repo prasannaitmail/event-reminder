@@ -31,6 +31,8 @@ import android.content.DialogInterface;
 public class AddReminder extends Activity {
 	String RowID;
 	private Long mRowId;
+	private Long mLocationRowId = 0L;
+	private boolean mTimeupdate = true;
 	
 	private Calendar mCalendar;
 		
@@ -39,6 +41,7 @@ public class AddReminder extends Activity {
 	private Button mPickAlarmButton;
 	private Button mSetTimeUpdateButton;
 	private Button mSetLocationUpdateButton;
+	private Button mSetPickLocationButton;
     private Button mSaveButton;
     private Button mCancelButton;
 	
@@ -74,6 +77,7 @@ public class AddReminder extends Activity {
 	mPickDateButton = (Button) findViewById(R.id.dateForReminder);
 	mPickTimeButton = (Button) findViewById(R.id.timeForReminder);
 	mPickAlarmButton = (Button) findViewById(R.id.alarmForReminder);
+	mSetPickLocationButton = (Button) findViewById(R.id.useSavedLocation);
 	mTitleText = (EditText) findViewById(R.id.title);
 	mNoteText =(EditText) findViewById(R.id.notes);
 	mSaveButton = (Button) findViewById(R.id.save);
@@ -109,7 +113,7 @@ public class AddReminder extends Activity {
 			setTitle("Edit Event");
 		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -121,6 +125,7 @@ public class AddReminder extends Activity {
 		mDbHelper.open(); 
 		setRowIdFromIntent(); 
 		showFields(); 
+		updatePickLocationButtonText();
 	}
 	
     private void registerButtonListenersAndSetDefaultText() {
@@ -131,6 +136,7 @@ public class AddReminder extends Activity {
 			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
 			@Override
 			public void onClick(View v) {
+				mTimeupdate=true;
 				timeUpdateLayout.setVisibility(View.VISIBLE);
 				defaultLayout2.setVisibility(View.VISIBLE);
 				EventOptionsLayout.setVisibility(View.GONE);
@@ -144,6 +150,7 @@ public class AddReminder extends Activity {
 			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);
 			@Override
 			public void onClick(View v) {
+				mTimeupdate=false;
 				locationUpdateLayout.setVisibility(View.VISIBLE);
 				defaultLayout2.setVisibility(View.VISIBLE);
 				EventOptionsLayout.setVisibility(View.GONE);
@@ -173,17 +180,33 @@ public class AddReminder extends Activity {
 			public void onClick(View v) {
 				AlarmDialog();
 			}
-		});		
+		});
+		
+		mSetPickLocationButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//Intent intent = new Intent(this, LocationActivity.class);
+				//startActivity(intent);
+		    	Intent intent = new Intent(AddReminder.this, LocationActivity.class);
+		    	intent.putExtra("LocationRowNumber", 0L);
+		        final int result=1;
+		        AddReminder.this.startActivityForResult(intent, result);
+				
+			}
+		});
 		
 		/* Click listener to the Save button */
 		mSaveButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				saveEvent(); 
+				boolean result = saveEvent();
+				if( result)
+				{
 				setResult(RESULT_OK); 
 				Toast.makeText(AddReminder.this, 
 						getString(R.string.event_saved_message),
 						Toast.LENGTH_SHORT).show();
 				finish(); 
+				}
 			}
 		});
 		
@@ -263,6 +286,20 @@ public class AddReminder extends Activity {
     		mPickAlarmButton.setText("Before " + arrAlarmTime[i] + " Mins"); 
     }
     
+    private void updatePickLocationButtonText() {
+		if(mLocationRowId > 0)
+		{
+    		Cursor LocationCursor = mDbHelper.fetchLocation(mLocationRowId);
+    		
+   			String title = LocationCursor.getString(
+    					LocationCursor.getColumnIndexOrThrow(
+    							eventDB.KEY_LOCATION)); 
+   			Log.d("TAG", "title: " + title);
+   			mSetPickLocationButton.setText(title);
+		}
+		
+   	}
+    
     /*Alarm */
     private void AlarmDialog(){
     	final String[] AlarmOptions = {"On due time",
@@ -317,16 +354,18 @@ public class AddReminder extends Activity {
     		try {
     			String dateString = reminder.getString(
     					reminder.getColumnIndexOrThrow(
-    							eventDB.KEY_DATE_TIME)); 
-    			date = dateTimeFormat.parse(dateString);
-    			mCalendar.setTime(date);
+    							eventDB.KEY_DATE_TIME));
+    			if( dateString != null)
+    			{
+    				date = dateTimeFormat.parse(dateString);
+    				mCalendar.setTime(date);
+       			}
     		} catch (java.text.ParseException e) { 
     			Log.e("AddReminder", e.getMessage(), e); 
     		}
-    		
     		setAlarmTime (Integer.parseInt(reminder.getString(
     				reminder.getColumnIndexOrThrow(eventDB.KEY_ALARMOPTION)))); 
-    	}//end of if
+    	}// if (mRowId != null)
     	updateDateButtonText();
     	updateTimeButtonText();
     	updateAlarmButtonText();
@@ -344,40 +383,104 @@ future, it can be restored to a known state */
     }
     
     /* Saves the event */
-    private void saveEvent() {
+    private boolean saveEvent() {
     	String title = mTitleText.getText().toString(); 
+    	if(title.length() <= 0)
+    	{
+			Toast.makeText(AddReminder.this, 
+					getString(R.string.no_title_message),
+					Toast.LENGTH_SHORT).show();
+    		return false;
+    	}
     	String body = mNoteText.getText().toString(); 
-    	String alarmOption = String.valueOf(AlarmTime);
-    	SimpleDateFormat dateTimeFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
-    	Log.d("TAG Time", "Old time for Alarm: "+mCalendar.get(mCalendar.MINUTE));
-    	Log.d("TAG Time", "time for AlarmOptions: "+getAlarmTime());
-    	
-    	Log.d("TAG Time", "New time for Alarm1: "+(mCalendar.get(mCalendar.MINUTE) - getAlarmTime()));
-    	mCalendar.set(mCalendar.SECOND, 0);
-    	Log.d("TAG Time", "Old time for Alarm, Second: "+mCalendar.get(mCalendar.SECOND));
-    	String eventDateTime = dateTimeFormat.format(mCalendar.getTime()); 
-    	    	
-    	if (mRowId == null) {
-    		long id = mDbHelper.createEvent(title, body, eventDateTime, alarmOption); 
-    		if (id > 0) { 
-    			mRowId = id; 
+
+    	if(mTimeupdate)
+    	{
+    		Log.d("TAG","Time alarm");
+        	String alarmOption = String.valueOf(AlarmTime);
+
+        	
+	    	SimpleDateFormat dateTimeFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
+	    	mCalendar.set(mCalendar.SECOND, 0);
+	    	Log.d("TAG Time", "Old time for Alarm, Second: "+mCalendar.get(mCalendar.SECOND));
+	    	String eventDateTime = dateTimeFormat.format(mCalendar.getTime()); 
+
+	    	String latitude = null;
+	    	String longitude = null;
+	    	if (mRowId == null) {
+	    		long id = mDbHelper.createEvent(title, body, eventDateTime, alarmOption, latitude, longitude); 
+	    		if (id > 0) { 
+	    			mRowId = id; 
+	    		}
+	    	}
+	    	else {
+	    		mDbHelper.updateEvent(mRowId, title, body, eventDateTime, alarmOption, latitude, longitude); 
+	    	}
+	    	Log.d("TAG", "Alarm in AR for: "+mRowId);
+	    	
+	    	/*add alarm */
+	    	mCalendar.set(mCalendar.MINUTE, (mCalendar.get(mCalendar.MINUTE) - getAlarmTime())); 
+	    	Log.d("TAG Time", "New time for Alarm2: "+mCalendar.get(mCalendar.MINUTE));
+	    	Log.d("TAG Time", "New time for Alarm, Second: "+mCalendar.get(mCalendar.SECOND));
+	    	new EventReminderManager(this).setReminder(mRowId, mCalendar);
+    	}
+    	else
+    	{
+    		Log.d("TAG","Location alarm");
+    		
+    		if(mLocationRowId <= 0)
+    		{
+				Toast.makeText(AddReminder.this, 
+						getString(R.string.no_pick_message),
+						Toast.LENGTH_SHORT).show();
+    			
+    			return false;
     		}
-    	}
-    	else {
-    		mDbHelper.updateEvent(mRowId, title, body, eventDateTime, alarmOption); 
-    	}
-    	Log.d("TAG", "Alarm in AR for: "+mRowId);
+    		
+    		Cursor LocationCursor = mDbHelper.fetchLocation(mLocationRowId);
+    		
+   			String latitude = LocationCursor.getString(
+    					LocationCursor.getColumnIndexOrThrow(
+    							eventDB.KEY_LATITUDE)); 
+   			String longitude = LocationCursor.getString(
+    					LocationCursor.getColumnIndexOrThrow(
+    							eventDB.KEY_LONGITUDE)); 
+    		
+    		String eventDateTime = null;
+    		String alarmOption = null;
+    		Log.d("TAG","latitude: " + latitude + "longitude: " + longitude);
+
+	    	if (mRowId == null) {
+	    		long id = mDbHelper.createEvent(title, body, eventDateTime, alarmOption, latitude, longitude); 
+	    		if (id > 0) { 
+	    			mRowId = id; 
+	    		}
+	    	}
+	    	else {
+	    		mDbHelper.updateEvent(mRowId, title, body, eventDateTime, alarmOption, latitude, longitude); 
+	    	}
+	    	/*add promixityalert alarm */
+	    	Double dlatitude = Double.valueOf(latitude)/1E6;
+	    	Double dlongitude = Double.valueOf(longitude)/1E6;
+	    	
+    		Log.d("TAG","latitude: " + dlatitude + "longitude: " + dlongitude);
     	
-    	/*add alarm */
-    	mCalendar.set(mCalendar.MINUTE, (mCalendar.get(mCalendar.MINUTE) - getAlarmTime())); 
-    	Log.d("TAG Time", "New time for Alarm2: "+mCalendar.get(mCalendar.MINUTE));
-    	Log.d("TAG Time", "New time for Alarm, Second: "+mCalendar.get(mCalendar.SECOND));
-    	new EventReminderManager(this).setReminder(mRowId, mCalendar);
+	    	new EventLocationManager(this).addProximityAlert(mRowId, dlatitude, dlongitude );
+    	}
     	
+    	return true;
     }//end of saveEvent
       
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
     	super.onActivityResult(requestCode, resultCode, intent);
+
+    	if( resultCode == RESULT_OK )
+    	{
+    		mLocationRowId = intent.getLongExtra("LocationRowNumber", 0L);
+    	}
+    	
+    	Log.d("TAG", "LocationRowNumber1: " + mLocationRowId );
+    	
 	}
 
 	public void setAlarmTime(int alarmTime) {
@@ -388,47 +491,14 @@ future, it can be restored to a known state */
 		return arrAlarmTime[AlarmTime];
 	}
 	
-	/* Create menu for location */
-	 @Override
-	    public boolean onCreateOptionsMenu(Menu menu) {
-	    super.onCreateOptionsMenu(menu);
-	    MenuInflater mi = getMenuInflater();
-	    mi.inflate(R.menu.location_menu, menu);
-	    return true;
-	    }
-	    
-	    @Override
-	    public boolean onMenuItemSelected(int featureId, MenuItem item) { 
-	    switch(item.getItemId()) {
-	    case R.id.addNewLocation:
-	    	Intent intent = new Intent(AddReminder.this, AddLocationOnMap.class);
-	        AddReminder.this.startActivity(intent);
-	    	return true;
-	    }
-	    return super.onMenuItemSelected(featureId, item);
-	    }
-	    
-
-		public boolean onPrepareOptionsMenu(Menu menu) {
-	    	onPause();
-	    	return true;
-	    }
-	    
-	    public void onOptionsMenuClosed(Menu menu)
-	    {
-	    	onPause();
-	    	onResume();
-	    }
-	    
-
-		@Override
-		public void onDestroy() {
-			super.onDestroy();
-		}
-		@Override
-		public void onStop() {
-		
-			super.onStop();
-		}
-	    
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	@Override
+	public void onStop() {
+	
+		super.onStop();
+	}
+		    
 }

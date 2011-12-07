@@ -22,6 +22,7 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context mContext;
 	private Drawable mdefaultMarker;
+	private GeoPoint p1;
 	
 	public HelloItemizedOverlay(Drawable defaultMarker) {
 		  super(boundCenterBottom(defaultMarker));
@@ -52,20 +53,11 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		mdefaultMarker = defaultMarker;
 	}
 	
-	//@Override
-	//protected boolean onTap(int index) {
-		//System.out.println("OnTap");
-/*	  OverlayItem item = mOverlays.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-	  dialog.setTitle(item.getTitle());
-	  dialog.setMessage(item.getSnippet());
-	  dialog.show();*/
-	//  return true;
-//	}
 	
 	@Override
 	public boolean onTap(GeoPoint p, MapView mapView)
 	{
+		p1 = p;
 		mContext = mapView.getContext();
 		System.out.println("OnTap1");
         Toast.makeText(mapView.getContext(), 
@@ -81,11 +73,6 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	    mapOverlays.clear();
 	    mapOverlays.add(itemizedoverlay);
 	    mapView.invalidate();
-
-		/*AlertDialog.Builder dialog = new AlertDialog.Builder(mapView.getContext());
-		dialog.setTitle(overlayitem.getTitle());
-		dialog.setMessage(overlayitem.getSnippet());
-		dialog.show(); */
 	    
 	    AlertDialog.Builder locationDialog = new AlertDialog.Builder(mapView.getContext());
 	    locationDialog.setMessage("Are you sure you want to save this location?")
@@ -95,10 +82,22 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	    new DialogInterface.OnClickListener() { 
 	    public void onClick(DialogInterface dialog, int id) {
 	    // Perform some action such as saving the location
-	    	Intent myIntent = new Intent(mContext, LocationPreferences.class);
-	    	mContext.startActivity(myIntent);
-	    	dialog.cancel();
-	    }
+	    	//Intent myIntent = new Intent(mContext, LocationPreferences.class);
+	    	//mContext.startActivity(myIntent);
+	    	
+	    	Log.d("TAG","Point is " + p1.getLatitudeE6()+ ": " + p1.getLongitudeE6());
+	    	
+	    	eventDB mDbHelper = new eventDB(mContext);
+	    	String location = "location1";
+	    	String latitude = String.valueOf(p1.getLatitudeE6());
+	    	String longitude = String.valueOf(p1.getLongitudeE6());
+	    	
+	    	mDbHelper.open();
+    		mDbHelper.createLocation(location, latitude, longitude); 
+	    	mDbHelper.close();
+	    	//dialog.cancel();   	
+            ((AddLocationOnMap) mContext).finish();
+	    	}
 	    })
 	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
 	    public void onClick(DialogInterface dialog, int id) {
@@ -108,28 +107,5 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	    locationDialog.create().show();
 		  return true;
 	}
-	
-	public boolean onTouchEvent(MotionEvent event, MapView mapView) {   
-/*        if (event.getAction() == 1) {                
-            GeoPoint p = mapView.getProjection().fromPixels(
-                (int) event.getX(),
-                (int) event.getY());
-                Toast.makeText(mapView.getContext(), 
-                    p.getLatitudeE6() / 1E6 + "," + 
-                    p.getLongitudeE6() /1E6 , 
-                    Toast.LENGTH_SHORT).show();
-                
-        	List<Overlay> mapOverlays = mapView.getOverlays();
-       	    HelloItemizedOverlay itemizedoverlay = new HelloItemizedOverlay( mdefaultMarker );    
-    	    OverlayItem overlayitem = new OverlayItem(p, "Hi!", "I'm in SFSU!");
-    	        	    
-    	    itemizedoverlay.addOverlay(overlayitem);
-    	    mapOverlays.clear();
-    	    mapOverlays.add(itemizedoverlay);
-    	    mapView.invalidate();
-    	    
-        }                           */ 
-        return false;
-    }
 	
 }

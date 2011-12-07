@@ -175,7 +175,7 @@ public class ViewReminder extends Activity{
     	Log.d("TAG Time", "New time: "+vCalendar);
     	String eventDateTime = dateTimeFormat.format(vCalendar.getTime()); 
     	
-    	vDbHelper.updateEvent(vRowId, title, body, eventDateTime, AlarmTime); 
+    	vDbHelper.updateEvent(vRowId, title, body, eventDateTime, AlarmTime, null, null); 
     	
     	/*add alarm */
     	new EventReminderManager(this).setReminder(vRowId, vCalendar);
