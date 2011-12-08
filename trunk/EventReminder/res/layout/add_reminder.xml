@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This layout is used to add and edit event. Both time based and location based
+reminder uses this layout  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id ="@+id/AddReminderLayout"
     android:layout_width="fill_parent" 
