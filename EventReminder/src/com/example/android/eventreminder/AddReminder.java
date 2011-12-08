@@ -392,8 +392,11 @@ public class AddReminder extends Activity {
         		startManagingCursor(LocationCursor);
         		if(LocationCursor != null)
         		{
-        			mLocationRowId = (long) LocationCursor.getInt(
-            				reminder.getColumnIndexOrThrow(eventDB.KEY_ROWID));
+        			if(mLocationRowId <= 0)
+        			{
+        				mLocationRowId = (long) LocationCursor.getInt(
+        						reminder.getColumnIndexOrThrow(eventDB.KEY_ROWID));
+        			}
         			Log.d("TAG","mLocationRowId is " + mLocationRowId);
         			if ( mLocationRowId > 0)
         				updatePickLocationButtonText();
