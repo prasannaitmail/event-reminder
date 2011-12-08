@@ -15,6 +15,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -23,12 +24,25 @@ public class LocationActivity extends ListActivity {
 	private eventDB mDbHelper;
 	private Long mRowId;
 	
+	private Button mAddLocationButton;
+	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location);
         
+        mAddLocationButton = (Button) findViewById(R.id.addNewLocation);
+
+    	/* click listener to the Add Event button*/
+        mAddLocationButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+		    	Intent intent = new Intent(LocationActivity.this, AddLocationOnMap.class);
+		    	LocationActivity.this.startActivity(intent);
+			}
+		});
+
 		if (mRowId == null) {
 		Bundle extras = getIntent().getExtras();
 		mRowId = extras != null	? extras.getLong("LocationRowNumber")	: null;

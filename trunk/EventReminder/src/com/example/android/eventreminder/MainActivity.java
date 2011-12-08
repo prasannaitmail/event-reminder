@@ -14,6 +14,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -31,11 +32,24 @@ public class MainActivity extends ListActivity {
 	private eventDB mDbHelper;
 	String RowId;
 	
+	private Button mAddEventButton;
+
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        mAddEventButton = (Button) findViewById(R.id.addNewEvent);
+
+    	/* click listener to the Add Event button*/
+        mAddEventButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+		        createReminder();
+			}
+		});
+
         mDbHelper = new eventDB(this);
         mDbHelper.open();
         fillData();
@@ -52,8 +66,8 @@ public class MainActivity extends ListActivity {
     	// and an array of the fields for each list row
     	int[] to = new int[]{R.id.eventrow}; 
     	// a simple cursor adapter and set it to display
-    	SimpleCursorAdapter reminders =
-    	new SimpleCursorAdapter(this, R.layout.list_row,
+    	CustomSimpleCursorAdapter reminders =
+    	new CustomSimpleCursorAdapter(this, R.layout.list_row,
     	remindersCursor, from, to); 
     	setListAdapter(reminders); 
     }
