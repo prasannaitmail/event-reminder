@@ -1,12 +1,12 @@
 
-
 === Completed Tasks ===
 
 1) Location based reminder.
 
-2) Added snooze functionality for time based reminders
+2) Added functionality to store location on google map
 
-3) Added  functionality for alarm options. e.g User can set alarm before 5 minutes.
+3) Added snooze functionality for time based reminders
 
-4) Input validation for location updates.
+4) Added  functionality for alarm options. e.g User can set alarm before 5 minutes.
 
+5) Input validation for location updates.
