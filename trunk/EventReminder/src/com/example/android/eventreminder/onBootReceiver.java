@@ -14,6 +14,7 @@ public class onBootReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context context, Intent intent) { 
 		EventReminderManager reminderMgr = new EventReminderManager(context); 
+		EventLocationManager locationMgr = new EventLocationManager(context); 
 		
 		eventDB dbHelper = new eventDB(context);
 		dbHelper.open();
@@ -43,6 +44,19 @@ public class onBootReceiver extends BroadcastReceiver{
 					} catch (java.text.ParseException e) {
 						Log.e("OnBootReceiver", e.getMessage(), e); 
 					}
+				}
+				else
+				{
+					String latitude = cursor.getString(cursor.getColumnIndex(eventDB.KEY_LATITUDE));
+					String longitude = cursor.getString(cursor.getColumnIndex(eventDB.KEY_LONGITUDE));
+					
+			    	Double dlatitude = Double.valueOf(latitude)/1E6;
+			    	Double dlongitude = Double.valueOf(longitude)/1E6;
+			    	
+		    		Log.d("TAG","latitude: " + dlatitude + "longitude: " + dlongitude);
+		    	
+			    	locationMgr.addProximityAlert(rowId, dlatitude, dlongitude );
+
 				}
 				cursor.moveToNext(); 
 			}//end of while

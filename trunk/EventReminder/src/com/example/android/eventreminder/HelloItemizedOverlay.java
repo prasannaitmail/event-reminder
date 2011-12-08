@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -82,21 +84,47 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	    new DialogInterface.OnClickListener() { 
 	    public void onClick(DialogInterface dialog, int id) {
 	    // Perform some action such as saving the location
+
 	    	//Intent myIntent = new Intent(mContext, LocationPreferences.class);
 	    	//mContext.startActivity(myIntent);
 	    	
 	    	Log.d("TAG","Point is " + p1.getLatitudeE6()+ ": " + p1.getLongitudeE6());
 	    	
-	    	eventDB mDbHelper = new eventDB(mContext);
-	    	String location = "location1";
-	    	String latitude = String.valueOf(p1.getLatitudeE6());
-	    	String longitude = String.valueOf(p1.getLongitudeE6());
 	    	
-	    	mDbHelper.open();
-    		mDbHelper.createLocation(location, latitude, longitude); 
-	    	mDbHelper.close();
-	    	//dialog.cancel();   	
-            ((AddLocationOnMap) mContext).finish();
+		    AlertDialog.Builder NameDialog = new AlertDialog.Builder(mContext);
+		    NameDialog.setMessage("Enter Location")
+		    .setTitle("Enter Location")
+		    .setCancelable(false);
+	    	final EditText input = new EditText(mContext);
+		    NameDialog.setView(input);
+		    
+		    NameDialog.setPositiveButton("Yes", 
+		    new DialogInterface.OnClickListener() { 
+		    public void onClick(DialogInterface dialog, int id) {
+		    	String location = input.getText().toString();
+		    	//dialog.cancel();
+
+		    	if(location.length() > 0)
+		    	{
+			    	eventDB mDbHelper = new eventDB(mContext);
+			    	String latitude = String.valueOf(p1.getLatitudeE6());
+			    	String longitude = String.valueOf(p1.getLongitudeE6());
+			    	
+			    	mDbHelper.open();
+		    		mDbHelper.createLocation(location, latitude, longitude); 
+			    	mDbHelper.close();
+			    	((AddLocationOnMap) mContext).finish();
+		    	}
+		    	}
+		    })
+		    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+		    dialog.cancel(); 
+		    }
+		    });
+		    NameDialog.create().show();	    	
+
+	    	//dialog.cancel();  
 	    	}
 	    })
 	    .setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -119,4 +119,25 @@ public class LocationActivity extends ListActivity {
 			super.onResume();
 			mDbHelper.open(); 
 		}
+		
+	    @Override
+	    public void onCreateContextMenu(ContextMenu menu, View v,
+	    ContextMenuInfo menuInfo) {
+	    	super.onCreateContextMenu(menu, v, menuInfo);
+	    	MenuInflater mi = getMenuInflater();
+	    	mi.inflate(R.menu.list_item_longpress, menu);
+	    }
+	    
+	    @Override
+	    public boolean onContextItemSelected(MenuItem item) {
+	    	switch(item.getItemId()) {
+	    	case R.id.menu_delete:
+	    		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    			mDbHelper.deleteLocation(info.id); 
+	    			fillData();
+	    		
+	    		return true;
+	    	}
+	    	return super.onContextItemSelected(item);
+	    }
 }
