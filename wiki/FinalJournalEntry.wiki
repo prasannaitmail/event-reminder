@@ -1,0 +1,12 @@
+
+
+=== Completed Tasks ===
+
+1) Location based reminder.
+
+2) Added snooze functionality for time based reminders
+
+3) Added  functionality for alarm options. e.g User can set alarm before 5 minutes.
+
+4) Input validation for location updates.
+
