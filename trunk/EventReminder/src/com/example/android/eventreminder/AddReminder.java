@@ -27,7 +27,8 @@ import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-
+/* This class is used to add and edit the event. It uses data from incoming intent to
+ * decide weather it is request to add new event or edit event. */
 public class AddReminder extends Activity {
 	String RowID;
 	private Long mRowId;
@@ -294,7 +295,7 @@ public class AddReminder extends Activity {
 		if(mLocationRowId > 0)
 		{
     		Cursor LocationCursor = mDbHelper.fetchLocation(mLocationRowId);
-    		
+    		startManagingCursor(LocationCursor);
    			String title = LocationCursor.getString(
     					LocationCursor.getColumnIndexOrThrow(
     							eventDB.KEY_LOCATION)); 
@@ -304,7 +305,7 @@ public class AddReminder extends Activity {
 		
    	}
     
-    /*Alarm */
+    /*Alarm options */
     private void AlarmDialog(){
     	final String[] AlarmOptions = {"On due time",
     									"Before 5 minutes",
@@ -318,7 +319,7 @@ public class AddReminder extends Activity {
         .setSingleChoiceItems(AlarmOptions, getAlarmTime(), new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                /* User clicked on a radio button do some stuff */
+                /* User clicked on a radio button to set alarm time */
             	Log.d("Alarm", "Button " + whichButton);
             	setAlarmTime(whichButton);
             }
@@ -337,9 +338,11 @@ public class AddReminder extends Activity {
     
     }
     
+    /* For edit event, this methods assigns values to respective form fields */
     private void showFields(){ 
     	if (mRowId != null) {
     		Log.d("TAG", "mRowId is "+mRowId);
+    		/* catch the linear layouts for setting visibility */
     		LinearLayout timeUpdateLayout = (LinearLayout)findViewById(R.id.timeUpdateLayout);
 			LinearLayout defaultLayout2 = (LinearLayout)findViewById(R.id.defaultLayout2);
 			LinearLayout EventOptionsLayout = (LinearLayout)findViewById(R.id.EventOptionsLayout);

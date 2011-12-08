@@ -17,6 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+/* This is the class for main screen. It lists scheduled events.
+ * The user can view scheduled tasks on the main screen. He can add new event using menu.  
+ * It creates "options menu" to add new event and for help screen.
+ * It also creates context menu to delete event.  It starts AddReminder activity to add new event 
+ * and to edit event. For edit event, it passes rowId of an event as an extra information to
+ * AddReminder activity. */
+
 public class MainActivity extends ListActivity {
 	private static final int ACTIVITY_CREATE=0;
 	private static final int ACTIVITY_EDIT=1;
@@ -29,12 +36,6 @@ public class MainActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        /* Create fake data for testing purpose*/
-       /* String[] listItems = new String[] {"Event 1","Event 2","Event 3","Event 4"};
-        ArrayAdapter<String> adapter =
-        new ArrayAdapter<String>(this, R.layout.list_row, R.id.eventrow, listItems); 
-        setListAdapter(adapter);*/
         mDbHelper = new eventDB(this);
         mDbHelper.open();
         fillData();
