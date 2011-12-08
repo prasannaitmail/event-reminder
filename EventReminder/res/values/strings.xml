@@ -2,7 +2,7 @@
 <resources>
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Event Reminder </string>
-    <string name="no_reminders">No Event </string>
+    <string name="no_reminders">No Event</string>
     <string name="Add_Event">Add Event </string>
     <string name="title">Title </string>
     <string name="Priority">Priority </string>
