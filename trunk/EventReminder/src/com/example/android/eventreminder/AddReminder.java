@@ -300,7 +300,7 @@ public class AddReminder extends Activity {
     					LocationCursor.getColumnIndexOrThrow(
     							eventDB.KEY_LOCATION)); 
    			Log.d("TAG", "title: " + title);
-   			mSetPickLocationButton.setText(title);
+   			mSetPickLocationButton.setText("Location: " + title);
 		}
 		
    	}

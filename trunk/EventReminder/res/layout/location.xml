@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is layout for main screen/ home screen which lists the reminders-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <ListView android:id="@+id/android:list" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1.0"
+		android:dividerHeight="1px"
+		android:divider="@drawable/list_divider"
+		>
+	</ListView>
+	<!-- If no event is listed, following textview is displayed -->	
+	<TextView android:id="@+id/android:empty" 
+    	android:layout_width="wrap_content" 
+   		android:layout_height="wrap_content" 
+   		android:text="@string/no_locations"
+   		android:textSize="20dp"
+   		android:layout_marginTop="20dp"
+    />
+    
+</RelativeLayout>

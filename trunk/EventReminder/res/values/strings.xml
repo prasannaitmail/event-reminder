@@ -3,6 +3,7 @@
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Event Reminder </string>
     <string name="no_reminders">Add new Event</string>
+    <string name="no_locations">Add new Event</string>
     <string name="Add_Event">Add Event </string>
     <string name="title">Title </string>
     <string name="Priority">Priority </string>
@@ -23,6 +24,7 @@
     <string name="menu_AddLocation">Add Location</string>
     <string name="list_of_events">List of Events</string>
     <string name="list_event_delete">Delete Event</string>
+    <string name="list_location_delete">Delete Location</string>
     <string name="event_saved_message">Event saved</string>
     <string name="event_canceled_message">Canceled</string>
     <string name="event_deleted_message">Event Deleted</string>
