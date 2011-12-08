@@ -27,7 +27,7 @@ public class LocationActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.location);
         
 		if (mRowId == null) {
 		Bundle extras = getIntent().getExtras();
@@ -52,7 +52,7 @@ public class LocationActivity extends ListActivity {
     	int[] to = new int[]{R.id.eventrow}; 
     	// a simple cursor adapter and set it to display
     	SimpleCursorAdapter reminders =
-    	new SimpleCursorAdapter(this, R.layout.list_row,
+    	new SimpleCursorAdapter(this, R.layout.list_location,
     			LocationsCursor, from, to); 
     	setListAdapter(reminders); 
     }
@@ -125,7 +125,7 @@ public class LocationActivity extends ListActivity {
 	    ContextMenuInfo menuInfo) {
 	    	super.onCreateContextMenu(menu, v, menuInfo);
 	    	MenuInflater mi = getMenuInflater();
-	    	mi.inflate(R.menu.list_item_longpress, menu);
+	    	mi.inflate(R.menu.list_location_longpress, menu);
 	    }
 	    
 	    @Override
