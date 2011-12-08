@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This is a layout for each row in the list -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:orientation="horizontal"
-	    android:padding="4px">
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip">
+	    
+	<ImageView
+        android:id="@+id/icon"
+        android:layout_marginLeft="4px"
+        android:layout_marginRight="10px"
+        android:layout_marginTop="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:src="@drawable/icon" >
+    </ImageView>
+
+    <LinearLayout
+        android:orientation="vertical"
+    
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="fill_parent">
+        
 	<TextView
-  		xmlns:android="http://schemas.android.com/apk/res/android"
   		android:id="@+id/eventrow"
-  		android:padding="20dip"
-  		android:layout_width="fill_parent"
-  		android:layout_height="fill_parent"
-  		android:textSize="16sp"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
   		android:textStyle="bold"
-  		android:textColor="#fffafa"
-  		android:ellipsize="end">
+  		android:textColor="#fffafa">
 	</TextView>
+	
+	<TextView
+  		android:id="@+id/eventrow1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" 
+        android:singleLine="true"
+        android:ellipsize="marquee"
+  		android:textSize="14sp"
+  		android:textColor="#fffafa"
+  		android:gravity="bottom|center_horizontal">
+	</TextView>
+	</LinearLayout>
 </LinearLayout>
