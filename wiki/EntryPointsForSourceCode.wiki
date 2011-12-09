@@ -1,0 +1,24 @@
+=== Flow Diagram ===
+
+Class associated with each block in the flow diagram is given in the bracket. 
+ 
+http://event-reminder.googlecode.com/svn/wiki/images/780flowDiagramUpdated.png
+
+*MainActivity.java*
+
+http://code.google.com/p/event-reminder/source/browse/trunk/EventReminder/src/com/example/android/eventreminder/MainActivity.java 
+
+
+*AddReminder.java*
+
+*EventReminderManager.java*
+
+*EventLocationManager.java*
+
+*AlarmReceiver.java*
+
+*LocationReceiver.java*
+
+*EventReminderService.java*
+
+*ViewReminder.java*
