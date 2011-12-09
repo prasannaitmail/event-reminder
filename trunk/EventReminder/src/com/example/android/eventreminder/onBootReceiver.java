@@ -8,7 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.util.Log;
-
+/* AlarmManager does not persist alarms. When the device reboots, 
+ * all the alarms need to set up all over again. This class handles
+ * the boot notification from Android. When the broadcast for boot is received, 
+ * the receiver schedules an alarm or add proximity alert for each event in the database.
+ * for it. This class ensures that alarms/proximity alerts don’t get lost in the reboot.*/
 public class onBootReceiver extends BroadcastReceiver{
 	/* Called when receiver receives an intent */
 	@Override

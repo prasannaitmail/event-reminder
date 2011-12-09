@@ -10,7 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
-
+/*This class is responsible for adding proximity alert using the LocationManager class 
+* It creates new Intent object which specifies what should happen. 
+* (In this case LocationReceiver receiver should be called).
+* A PendingIntent is created which helps LocationManager to notify an application that an action needs to be
+performed. The Pending-Intent contains an newly created Intent object*/
 public class EventLocationManager {
 
 	private Context mContext;
@@ -20,7 +24,7 @@ public class EventLocationManager {
 	
 	public EventLocationManager(Context context) { 
 		mContext = context;
-		/* Get alarm manager */
+		/* Get location manager */
 		mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 	}
 	

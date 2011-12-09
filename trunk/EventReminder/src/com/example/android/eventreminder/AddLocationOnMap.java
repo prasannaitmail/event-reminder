@@ -28,7 +28,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.View.OnClickListener;
-
+/*This class is responsible to display google map*/
 public class AddLocationOnMap extends MapActivity{
 	private MapView mapView;
 	private MapController mc;

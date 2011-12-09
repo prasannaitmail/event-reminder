@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 
-/* base class for EventReminderService class.
+/* This is a base class for EventReminderService class.
  * Handles acquiring and releasing CPU wake lock */
 public abstract class WakeReminderIntentService extends IntentService{
 	abstract void doReminderWork(Intent intent);

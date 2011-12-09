@@ -17,7 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/* When the notification is clicked, ViewReminder Activity is started.
+ * It displays title and notes for the corresponding event.
+ * It also gives option to delete the event.
+ * For, time based reminders, it offers snooze functionality */
 public class ViewReminder extends Activity{
 
     private eventDB vDbHelper;

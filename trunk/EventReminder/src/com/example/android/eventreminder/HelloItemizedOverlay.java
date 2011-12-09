@@ -18,7 +18,9 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-
+/* This class offers functionality to pick and store location on Google map.
+ * It stores location name, lattitude and longitude of the selected 
+ * location to the database */
 public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -84,28 +86,25 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	    new DialogInterface.OnClickListener() { 
 	    public void onClick(DialogInterface dialog, int id) {
 	    // Perform some action such as saving the location
-
-	    	//Intent myIntent = new Intent(mContext, LocationPreferences.class);
-	    	//mContext.startActivity(myIntent);
 	    	
 	    	Log.d("TAG","Point is " + p1.getLatitudeE6()+ ": " + p1.getLongitudeE6());
-	    	
-	    	
+  	
 		    AlertDialog.Builder NameDialog = new AlertDialog.Builder(mContext);
-		    NameDialog.setMessage("Enter Location")
+		    NameDialog.setMessage("Enter Location name")
 		    .setTitle("Enter Location")
 		    .setCancelable(false);
 	    	final EditText input = new EditText(mContext);
 		    NameDialog.setView(input);
 		    
-		    NameDialog.setPositiveButton("Yes", 
+		    NameDialog.setPositiveButton("Save", 
 		    new DialogInterface.OnClickListener() { 
 		    public void onClick(DialogInterface dialog, int id) {
 		    	String location = input.getText().toString();
 		    	//dialog.cancel();
-
+		    	
 		    	if(location.length() > 0)
 		    	{
+		    		/* Store Location */
 			    	eventDB mDbHelper = new eventDB(mContext);
 			    	String latitude = String.valueOf(p1.getLatitudeE6());
 			    	String longitude = String.valueOf(p1.getLongitudeE6());
@@ -117,7 +116,7 @@ public class HelloItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		    	}
 		    	}
 		    })
-		    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+		    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
 		    dialog.cancel(); 
 		    }
