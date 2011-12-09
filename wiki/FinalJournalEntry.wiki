@@ -1,6 +1,6 @@
 === Completed Tasks ===
 
-1) Location based reminder.
+1) Location based reminder using addProximityAlert(). For proximity alert 1000 m radius is used.  
 
 2) Added functionality to store location on Google map and delete saved location
 
