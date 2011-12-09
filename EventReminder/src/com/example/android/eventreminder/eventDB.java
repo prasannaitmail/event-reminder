@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/* This class is responsible for all the database related code. 
+ * Both time-based and location-based reminders are stored in the same table.
+ * There is a separate table for the Google map locations*/
 public class eventDB {
 	private static final String DATABASE_NAME = "eventData"; 
 	private static final String DATABASE_TABLE = "events";
@@ -35,7 +37,7 @@ public class eventDB {
 		+ KEY_LATITUDE + " text, "
 		+ KEY_LONGITUDE + " text);";
 	
-
+/**/
 	private static final String LOCATION_CREATE = 
 			"create table " + LOCATION_TABLE + " ("
 			+ KEY_ROWID + " integer primary key autoincrement, "

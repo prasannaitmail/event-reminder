@@ -18,7 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
+/* This activity is started when user clicks "Pick Location" Button in the location-reminder screen
+ * This class is responsible for listing all saved location for location-based updates.
+ * It starts AddLocationOnMap activity in order to add new location to the location list */
 public class LocationActivity extends ListActivity {
 	
 	private eventDB mDbHelper;
@@ -34,7 +36,7 @@ public class LocationActivity extends ListActivity {
         
         mAddLocationButton = (Button) findViewById(R.id.addNewLocation);
 
-    	/* click listener to the Add Event button*/
+    	/* click listener to the Add Location button*/
         mAddLocationButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -60,7 +62,7 @@ public class LocationActivity extends ListActivity {
     private void fillData() {
     	Cursor LocationsCursor = mDbHelper.fetchAllLocations();
     	startManagingCursor(LocationsCursor);
-    	// an array for the fields to show in the list row (now only the TITLE)
+    	// an array for the fields to show in the list row 
     	String[] from = new String[]{eventDB.KEY_LOCATION}; 
     	// and an array of the fields for each list row
     	int[] to = new int[]{R.id.eventrow}; 
@@ -90,7 +92,7 @@ public class LocationActivity extends ListActivity {
     }
     
     
-	/* Create menu for location */
+	/* Create menu for location list */
 	 @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	    super.onCreateOptionsMenu(menu);
@@ -141,7 +143,7 @@ public class LocationActivity extends ListActivity {
 	    	MenuInflater mi = getMenuInflater();
 	    	mi.inflate(R.menu.list_location_longpress, menu);
 	    }
-	    
+	    /* Delete location */
 	    @Override
 	    public boolean onContextItemSelected(MenuItem item) {
 	    	switch(item.getItemId()) {

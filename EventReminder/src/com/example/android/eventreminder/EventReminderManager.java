@@ -7,7 +7,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
+/* This class is responsible for setting up alarms using the AlarmManager class 
+ * It creates new Intent object which specifies what should happen when the alarm goes off. 
+ * (In this case AlarmReceiver receiver should be called).
+ * A PendingIntent is created which helps AlarmManager to notify an application that an action needs 
+ * to be performed. The Pending-Intent contains an newly created Intent object*/
 public class EventReminderManager {
 
 	private Context mContext;

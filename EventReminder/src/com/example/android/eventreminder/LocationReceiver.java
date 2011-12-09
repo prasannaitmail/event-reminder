@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-/* AlarmReceiver is an instance of BroadcastReceiver.
- * When the pending intent is broadcasted by the AlarmManager,
+/* LocationReceiver is an instance of BroadcastReceiver.
+ * When the pending intent is broadcasted by the LocationManager,
  * this class responds to the intent.
  * It accepts the intent, locks the CPU, and performs the necessary work.*/
 public class LocationReceiver extends BroadcastReceiver{

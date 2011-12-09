@@ -19,11 +19,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 /* This is the class for main screen. It lists scheduled events.
- * The user can view scheduled tasks on the main screen. He can add new event using menu.  
- * It creates "options menu" to add new event and for help screen.
- * It also creates context menu to delete event.  It starts AddReminder activity to add new event 
+ * The user can view list of scheduled tasks on the main screen. 
+ * It starts AddReminder activity to add new event 
  * and to edit event. For edit event, it passes rowId of an event as an extra information to
- * AddReminder activity. */
+ * AddReminder activity. It also creates context menu to delete event. */
 
 public class MainActivity extends ListActivity {
 	private static final int ACTIVITY_CREATE=0;

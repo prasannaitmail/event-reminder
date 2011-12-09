@@ -28,7 +28,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 /* This class is used to add and edit the event. It uses data from incoming intent to
- * decide weather it is request to add new event or edit event. */
+ * decide weather it is request to add new event or edit event. 
+ * It calls AlarmManager’s set() method to set time-based reminder.
+ * It calls LocationManager's addProximityAlert() method to set location-based reminder*/
 public class AddReminder extends Activity {
 	String RowID;
 	private Long mRowId;
@@ -142,6 +144,7 @@ public class AddReminder extends Activity {
 			@Override
 			public void onClick(View v) {
 				mTimeupdate=true;
+				/* Make time-based layout fields visible */
 				timeUpdateLayout.setVisibility(View.VISIBLE);
 				defaultLayout2.setVisibility(View.VISIBLE);
 				EventOptionsLayout.setVisibility(View.GONE);
@@ -156,6 +159,7 @@ public class AddReminder extends Activity {
 			@Override
 			public void onClick(View v) {
 				mTimeupdate=false;
+				/* Make location-based layout fields visible */
 				locationUpdateLayout.setVisibility(View.VISIBLE);
 				defaultLayout2.setVisibility(View.VISIBLE);
 				EventOptionsLayout.setVisibility(View.GONE);
@@ -166,7 +170,7 @@ public class AddReminder extends Activity {
     	mPickDateButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// show date picker dialog
 				showDialog(DATE_DIALOG_ID);
 			}
 		});
@@ -175,6 +179,7 @@ public class AddReminder extends Activity {
 		mPickTimeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//show time picker dialog
 			showDialog(TIME_DIALOG_ID);
 			}
 		});
@@ -183,6 +188,7 @@ public class AddReminder extends Activity {
 		mPickAlarmButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//Show alarm dialog for alarm options
 				AlarmDialog();
 			}
 		});
@@ -190,9 +196,8 @@ public class AddReminder extends Activity {
 		mSetPickLocationButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//Intent intent = new Intent(this, LocationActivity.class);
-				//startActivity(intent);
-		    	Intent intent = new Intent(AddReminder.this, LocationActivity.class);
+		    	/* Start LocationActivity which lists all the saved locations */
+				Intent intent = new Intent(AddReminder.this, LocationActivity.class);
 		    	intent.putExtra("LocationRowNumber", 0L);
 		        final int result=1;
 		        AddReminder.this.startActivityForResult(intent, result);
@@ -224,7 +229,6 @@ public class AddReminder extends Activity {
 				finish(); 
 			}
 		});
-		
 		
 		updateDateButtonText();
 		updateTimeButtonText();
@@ -319,7 +323,7 @@ public class AddReminder extends Activity {
         .setSingleChoiceItems(AlarmOptions, getAlarmTime(), new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                /* User clicked on a radio button to set alarm time */
+                /* User clicks on a radio button to set alarm time */
             	Log.d("Alarm", "Button " + whichButton);
             	setAlarmTime(whichButton);
             }
@@ -478,7 +482,7 @@ future, it can be restored to a known state */
     		}
     		
     		Cursor LocationCursor = mDbHelper.fetchLocation(mLocationRowId);
-    		
+    		startManagingCursor(LocationCursor);
    			String latitude = LocationCursor.getString(
     					LocationCursor.getColumnIndexOrThrow(
     							eventDB.KEY_LATITUDE)); 
@@ -499,7 +503,7 @@ future, it can be restored to a known state */
 	    	else {
 	    		mDbHelper.updateEvent(mRowId, title, body, eventDateTime, alarmOption, latitude, longitude); 
 	    	}
-	    	/*add promixityalert alarm */
+	    	/*add promixityalert */
 	    	Double dlatitude = Double.valueOf(latitude)/1E6;
 	    	Double dlongitude = Double.valueOf(longitude)/1E6;
 	    	
