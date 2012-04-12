@@ -41,3 +41,7 @@ http://event-reminder.googlecode.com/svn/wiki/images/ViewLocationReminder.png
 * View screen for time-based reminder notification *
 
 http://event-reminder.googlecode.com/svn/wiki/images/ViewTimeReminder.png
+
+* Main Screen 
+
+http://event-reminder.googlecode.com/svn/wiki/images/ListviewMain.png
